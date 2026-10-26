@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موسوعة الذكاء الاصطناعي والامن السيبراني</title>
+    <!-- خط Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- أيقونات FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #05070d;
+            --card-bg: rgba(15, 20, 36, 0.9);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.45);
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --cyber-glow: #10b981;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 8%, rgba(99, 102, 241, 0.18) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(236, 72, 153, 0.16) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        /* ترويسة الموقع مع البروفايل الشخصي */
+        header {
+            text-align: center;
+            padding: 35px 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-container {
+            position: relative;
+            margin-bottom: 18px;
+            display: inline-block;
+        }
+
+        .profile-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #6366f1, #ec4899, #06b6d4);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.5), 0 0 45px rgba(6, 182, 212, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top center;
+            background-color: #0b0f19;
+            border: 2px solid var(--bg-dark);
+        }
+
+        .profile-container:hover .profile-avatar {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 0 35px rgba(236, 72, 153, 0.6), 0 0 55px rgba(99, 102, 241, 0.4);
+        }
+
+        .profile-badge {
+            position: absolute;
+            bottom: 2px;
+            left: 5px;
+            background: #0284c7;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            border: 2px solid var(--bg-dark);
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.8);
+        }
+
+        .founder-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .founder-tag span {
+            color: #38bdf8;
+        }
+
+        header h1 {
+            font-size: 2.7rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a5b4fc, #f472b6, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* الشريط الإخباري المتحرك */
+        .ticker-wrapper {
+            width: 95%;
+            max-width: 1400px;
+            margin: 15px auto 5px;
+            background: rgba(18, 24, 43, 0.75);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            padding: 5px 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            position: relative;
+        }
+
+        .ticker-badge {
+            background: linear-gradient(135deg, #ef4444, #ec4899);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            z-index: 5;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+        }
+
+        .ticker-badge i {
+            animation: pulse 1.5s infinite;
+        }
+
+        .ticker-track {
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .ticker-content {
+            display: inline-flex;
+            gap: 40px;
+            animation: marquee 45s linear infinite;
+        }
+
+        .ticker-wrapper:hover .ticker-content {
+            animation-play-state: paused;
+        }
+
+        .ticker-item {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .ticker-item:hover {
+            color: var(--accent);
+        }
+
+        .ticker-item span.tag {
+            background: rgba(255, 255, 255, 0.08);
+            color: #818cf8;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        /* لوحة التحكم والبحث */
+        .controls-panel {
+            max-width: 1100px;
+            margin: 15px auto 10px;
+            padding: 0 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+            max-width: 550px;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 12px 45px 12px 20px;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 16px var(--primary-glow);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .view-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 18px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* تصنيفات المجالات */
+        .categories-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 7px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 0 12px var(--primary-glow);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .cat-count {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* مساحة العرض والسلايدر */
+        .slider-wrapper {
+            position: relative;
+            max-width: 1400px;
+            margin: 10px auto 35px;
+            width: 95%;
+            display: flex;
+            align-items: center;
+        }
+
+        .cards-container {
+            width: 100%;
+            display: flex;
+            gap: 22px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 10px;
+            scrollbar-width: none;
+        }
+
+        .cards-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cards-container.grid-mode {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 22px;
+            overflow: visible;
+        }
+
+        /* الفلاش كارد والتأثير ثلاثي الأبعاد */
+        .card-perspective {
+            perspective: 1100px;
+            flex: 0 0 315px;
+            height: 440px;
+        }
+
+        .cards-container.grid-mode .card-perspective {
+            flex: none;
+            width: 100%;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(14px);
+            background: var(--card-bg);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s;
+        }
+
+        .card:hover .card-face {
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        /* الوجه الأمامي */
+        .card-front {
+            align-items: center;
+            text-align: center;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.78rem;
+            align-self: flex-start;
+            font-weight: 600;
+        }
+
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(99,102,241,0.12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #818cf8;
+            margin-top: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .tool-title {
+            font-size: 1.35rem;
+            margin-top: 12px;
+            font-weight: 800;
+        }
+
+        .tool-short {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 8px 0;
+        }
+
+        .hint-text {
+            font-size: 0.8rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        /* الوجه الخلفي */
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(145deg, rgba(18, 24, 42, 0.98), rgba(9, 13, 24, 0.98));
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        .card-back h3 {
+            font-size: 1.2rem;
+            color: #a5b4fc;
+            margin-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+        }
+
+        .full-desc {
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            line-height: 1.55;
+            margin-bottom: 10px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 12px;
+        }
+
+        .features-list li {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .features-list li i {
+            color: #10b981;
+            font-size: 0.8rem;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-link:hover {
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: scale(1.02);
+        }
+
+        /* أسهم السلايدر */
+        .slide-arrow {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid var(--border);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .slide-arrow:hover {
+            background: var(--primary);
+            box-shadow: 0 0 14px var(--primary-glow);
+        }
+
+        .arrow-prev { right: -20px; }
+        .arrow-next { left: -20px; }
+
+        .hidden { display: none !important; }
+
+        footer {
+            text-align: center;
+            padding: 22px;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 700;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        footer span {
+            color: #818cf8;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.85rem; }
+            .profile-avatar { width: 110px; height: 110px; }
+            .card-perspective { flex: 0 0 280px; }
+            .slide-arrow { display: none; }
+            .ticker-wrapper { border-radius: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- إطار الصورة الشخصية المحدث بالرابط الجديد مع معالج تلقائي لروابط ImgBB -->
+        <div class="profile-container">
+            <div class="profile-avatar">
+                <img id="userAvatar"
+                     src="./images/hossam.jpg"
+                     alt="حسام صلاح عطيه"
+                     width="130"
+                     height="130"
+                     loading="eager"
+                     fetchpriority="high"
+                     onerror="handleImageFallback(this)">
+            </div>
+            <div class="profile-badge" title="خبير ومطور معتمد">
+                <i class="fa-solid fa-check"></i>
+            </div>
+        </div>
+
+        <div class="founder-tag">
+            <i class="fa-solid fa-shield-halved"></i> إعداد وتطوير: <span>حسام صلاح عطيه</span>
+        </div>
+
+        <h1>موسوعة الذكاء الاصطناعي والامن السيبراني ⚡</h1>
+        <p>المرجع الشامل لأهم وأحدث أدوات الذكاء الاصطناعي والدفاع السيبراني المتاحة حالياً، مع تصنيف دقيق وفلاش كاردز تفاعلية ثلاثية الأبعاد.</p>
+    </header>
+
+    <!-- شريط التحديثات اليومية المتحرك -->
+    <div class="ticker-wrapper">
+        <div class="ticker-badge">
+            <i class="fa-solid fa-circle-dot"></i> تحديثات اليوم
+        </div>
+        <div class="ticker-track">
+            <div class="ticker-content" id="tickerItems"></div>
+        </div>
+    </div>
+
+    <!-- شريط البحث وطريقة العرض -->
+    <div class="controls-panel">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="ابحث بين 225 أداة (بالاسم أو الوظيفة أو المجال)..." oninput="handleSearch()">
+        </div>
+        <div class="view-toggle">
+            <button class="view-btn active" id="btnSlider" onclick="setViewMode('slider')">
+                <i class="fa-solid fa-arrows-left-right"></i> سلايدر
+            </button>
+            <button class="view-btn" id="btnGrid" onclick="setViewMode('grid')">
+                <i class="fa-solid fa-grip"></i> شبكة (عرض شامل)
+            </button>
+        </div>
+    </div>
+
+    <!-- أزرار التصنيفات -->
+    <nav class="categories-nav" id="categoriesNav"></nav>
+
+    <!-- مساحة الكروت السلايدر -->
+    <div class="slider-wrapper">
+        <button class="slide-arrow arrow-prev" id="arrowPrev" onclick="scrollSlider('right')"><i class="fa-solid fa-chevron-right"></i></button>
+        
+        <div class="cards-container" id="cardsTrack"></div>
+
+        <button class="slide-arrow arrow-next" id="arrowNext" onclick="scrollSlider('left')"><i class="fa-solid fa-chevron-left"></i></button>
+    </div>
+
+    <!-- التذييل المطلوب -->
+    <footer>
+        جميع الحقوق محفوظه : <span>حسام صلاح عطيه 2026</span>
+    </footer>
+
+    <script>
+        // صورة بديلة عند تعذر تحميل الصورة المحلية
+        function handleImageFallback(imgElement) {
+            imgElement.onerror = null;
+            imgElement.src = "https://ui-avatars.com/api/?name=Hossam+Attia&background=6366f1&color=fff&size=150";
+        }
+
+        // بيانات الشريط الإخباري المتحرك
+        const dailyNews = [
+            { tool: "Darktrace", domain: "الأمن السيبراني", note: "إطلاق محرك التعلم الذاتي للتصدي لاختراقات الفدية في ثوانٍ معدودة." },
+            { tool: "Cursor AI", domain: "البرمجة", note: "تحديثات ثورية في فهم كامل مستودع الـ Codebase ومساعدة هندسية فورية." },
+            { tool: "FLUX.1", domain: "تصميم الصور", note: "يتصدر تقييمات رسم التايبوجرافي بدقة خيالية تفوقت على المنافسين." },
+            { tool: "CrowdStrike Charlotte", domain: "الأمن السيبراني", note: "تسريع تحقيقات مراكز العمليات الأمنية SOC بنسبة 70%." },
+            { tool: "Runway Gen-3", domain: "الفيديو", note: "ميزة التحكم السينمائي المتقدم بحركة الكاميرا والإضاءة." },
+            { tool: "Claude 3.5 Sonnet", domain: "الكتابة والتحليل", note: "النموذج الأكثر براعة في فهم المستندات الضخمة وصياغة المحتوى البشري." },
+            { tool: "Perplexity AI", domain: "البحث الأكاديمي", note: "تطوير ميزة توثيق المصادر اللحظية في الأوراق العلمية والتقارير." },
+            { tool: "Suno AI V3", domain: "الصوت والموسيقى", note: "إنتاج مقطوعات غنائية متكاملة بلهجات عربية بجودة استوديو." },
+            { tool: "Wiz AI-SPM", domain: "الأمن السحابي", note: "كشف مسارات الهجمات السحابية الحساسة بدون الحاجة لتثبيت Agent." }
+        ];
+
+        // تعبئة الشريط الإخباري
+        const tickerContainer = document.getElementById('tickerItems');
+        const repeatedNews = [...dailyNews, ...dailyNews];
+        tickerContainer.innerHTML = repeatedNews.map(item => `
+            <div class="ticker-item" onclick="searchFromTicker('${item.tool}')">
+                <span class="tag">${item.domain}</span>
+                <strong>${item.tool}:</strong> ${item.note}
+            </div>
+        `).join('');
+
+        function searchFromTicker(toolName) {
+            document.getElementById('searchInput').value = toolName;
+            handleSearch();
+            window.scrollTo({ top: 430, behavior: 'smooth' });
+        }
+
+        // التصنيفات
+        const categories = [
+            { id: "all", label: "الكل", icon: "fa-layer-group" },
+            { id: "cyber", label: "الأمن السيبراني", icon: "fa-shield-halved" },
+            { id: "img", label: "الصور والتصميم", icon: "fa-image" },
+            { id: "video", label: "الفيديو والمونتاج", icon: "fa-video" },
+            { id: "code", label: "البرمجة والتطوير", icon: "fa-code" },
+            { id: "write", label: "الكتابة والمحتوى", icon: "fa-pen-nib" },
+            { id: "market", label: "التسويق والأعمال", icon: "fa-chart-line" },
+            { id: "edu", label: "التعليم والبحث", icon: "fa-graduation-cap" },
+            { id: "audio", label: "الصوت والموسيقى", icon: "fa-headphones-simple" },
+            { id: "prod", label: "الإنتاجية والأتمتة", icon: "fa-bolt" },
+            { id: "3d", label: "3D والعوالم الافتراضية", icon: "fa-cube" }
+        ];
+
+        // مصفوفة الـ 225 أداة
+        const rawTools = [
+            // ================= قسم الأمن السيبراني (25 أداة) =================
+            ["Darktrace", "cyber", "الأمن السيبراني", "fa-shield-virus", "نظام مناعة سيبراني ذاتي يرصد التهديدات ويصد الهجمات في ثوانٍ بدون تدخل بشري.", "يحاكي الجهاز المناعي البشري ليتعلم نمط الحياة الرقمية الطبيعي لمؤسستك ويوقف الهجمات فور شذوذها.", ["استجابة ذاتية وإيقاف الهجمات لحظياً", "تعلم مستمر بدون قواعد مسبقة", "تغطية سحابية وشبكية متكاملة"], "https://darktrace.com"],
+            ["CrowdStrike Falcon", "cyber", "الأمن السيبراني", "fa-crow", "المنصة السحابية الأولى عالمياً لحماية النقاط الطرفية وتتبع الاختراقات بمساعد Charlotte AI.", "تحلل تريليونات الأحداث الأمنية يومياً لمنع الاختراقات ووقف برمجيات الفدية وهجمات الهوية المعقدة.", ["صيد التهديدات الاستباقي بمساعد AI", "إيقاف هجمات الفدية بدون ملفات (Fileless)", "رؤية شاملة لكافة أجهزة المؤسسة"], "https://www.crowdstrike.com"],
+            ["SentinelOne Singularity", "cyber", "الأمن السيبراني", "fa-microchip", "حماية ذاتية مدعومة بمساعد Purple AI للتحقيق في الحوادث واسترجاع الملفات المشفرة.", "تتميز بخاصية Rollback التي تتيح إرجاع النظام لحالته السليمة فوراً إذا تعرض لأي هجمة فدية بضغطة زر.", ["إرجاع فوري للملفات المصابة (Rollback)", "مساعد محادثة أمني ذكي Purple AI", "حماية الأجهزة السحابية والخوادم"], "https://www.sentinelone.com"],
+            ["Microsoft Security Copilot", "cyber", "الأمن السيبراني", "fa-shield-halved", "مساعد مايكروسوفت التوليدي لفرق الـ SOC لتحليل الإنذارات وصياغة تقارير الحوادث.", "يعتمد على نماذج OpenAI المتصلة بـ 65 تريليون إشارة أمنية يومياً لتسريع تحقيقات الاختراق بدقائق.", ["تلخيص الحوادث الأمنية المعقدة نصياً", "عكس هندسة الأوامر البرمجية الخبيثة", "تكامل مع Defender وSentinel"], "https://www.microsoft.com/security/business/ai-machine-learning/microsoft-security-copilot"],
+            ["Snyk", "cyber", "الأمن السيبراني", "fa-bug-slash", "الأداة الأولى لمطوري البرمجيات لكشف الثغرات في الأكواد والحزم وإصلاحها تلقائياً.", "تستخدم محرك DeepCode AI لفحص الكود ومستودعات الأكواد مفتوحة المصدر وتوليد Pull Request بالإصلاح.", ["كشف الثغرات داخل الكود المكتوب", "اقتراح كود سليم بديل تلقائياً", "فحص أمان حاويات Docker والحزم"], "https://snyk.io"],
+            ["Abnormal Security", "cyber", "الأمن السيبراني", "fa-envelope-circle-check", "منظومة حماية البريد الإلكتروني الذكية لصد هجمات الهندسة الاجتماعية والاحتيال المالي.", "تفهم السلوك الطبيعي للموظفين وتكشف انتحال الشخصيات، وهجمات الـ BEC، والرسائل الملغومة بدقة استثنائية.", ["كشف رسائل التصيد شديدة التعقيد", "حماية حسابات الموظفين المخترقة", "إيقاف هجمات تحويل الأموال الاحتيالية"], "https://abnormalsecurity.com"],
+            ["Vectra AI", "cyber", "الأمن السيبراني", "fa-network-wired", "رصد التهديدات والتحركات المشبوهة داخل الشبكة (NDR) وصيد المخترقين المتسللين.", "تتعقب محاولات المهاجمين للتنقل الجانبي داخل شبكتك وسرقة الصلاحيات وترتب خطورة الإنذارات.", ["كشف التحركات الجانبية للمخترقين", "تصفية الإنذارات وتقليل الإزعاج 90%", "تغطية الشبكات والسحابة والهوية"], "https://www.vectra.ai"],
+            ["Palo Alto Cortex XSOAR", "cyber", "الأمن السيبراني", "fa-bolt-lightning", "أتمتة الاستجابة الأمنية وتوحيد أنظمة الـ SOC لتقليص زمن معالجة الإنذارات.", "منصة SOAR رائدة تجمع أدواتك الأمنية وتشغل خطط استجابة آلية (Playbooks) لتحييد التهديدات في ثوانٍ.", ["أتمتة شاملة لغرف العمليات الأمنية", "آلاف مسارات الاستجابة الجاهزة", "تقليص زمن التحقيق لأقل من دقيقة"], "https://www.paloaltonetworks.com/cortex/cortex-xsoar"],
+            ["Recorded Future", "cyber", "الأمن السيبراني", "fa-eye", "منصة الاستخبارات الأمنية الكبرى لجمع بيانات التهديدات من الدارك ويب وتحليل المخاطر.", "تجمع وتحلل مليارات البيانات من الويب المظلم والمنتديات السرية لتنبيهك قبل استهداف مؤسستك بهجمة.", ["رصد تسريبات بياناتك بالدارك ويب", "استخبارات استباقية لمجموعات الهاكرز", "تقارير مخاطر فورية ومحدثة لحظياً"], "https://www.recordedfuture.com"],
+            ["Deep Instinct", "cyber", "الأمن السيبراني", "fa-brain", "أول منصة تستخدم التعلّم العميق (Deep Learning) لمنع البرمجيات الخبيثة قبل تنفيذها.", "تتنبأ بملفات الـ Zero-Day والبرمجيات الخبيثة غير المعروفة وتمنعها في أقل من 20 ملي ثانية قبل تشغيلها.", ["منع مسبق قبل تنفيذ البرمجية الخبيثة", "دقة غير مسبوقة ونسبة إنذارات كاذبة شبه معدومة", "حماية هجمات اليوم الصفري Zero-Day"], "https://www.deepinstinct.com"],
+            ["Wiz AI-SPM", "cyber", "الأمن السيبراني", "fa-cloud-shield", "المنصة الأسرع نمواً لتأمين السحابة وكشف مسارات الاختراق الحساسة في AWS وAzure.", "تفحص بيئتك السحابية بدون برامج عميلة (Agentless) وتحدد المسار الدقيق الذي يمكن للمهاجم استغلاله.", ["فحص شامل للسحابة بدون تثبيت وكيل", "رسم مسارات الاختراق الحقيقية (Attack Paths)", "أمان وحماية نماذج ومشاريع الـ AI"], "https://www.wiz.io"],
+            ["Tessian", "cyber", "الأمن السيبراني", "fa-user-shield", "حماية الموظفين من إرسال الإيميلات بالخطأ للشخص الخطأ ومنع تسريب البيانات.", "تتعلم عادات المراسلة لتمنع إرسال الملفات السرية لجهات خارجية عن طريق السهو وتحظر التصيد الاحتيالي.", ["منع إرسال البيانات السرية بالخطأ", "كشف رسائل التصيد الصادرة والواردة", "حماية الطبقة البشرية الأكثر عرضة للاختراق"], "https://www.tessian.com"],
+            ["Sophos Intercept X", "cyber", "الأمن السيبراني", "fa-lock", "حماية متقدمة للأجهزة تجمع بين التعلّم العميق ومنع هجمات برمجيات الفدية CryptoGuard.", "توقف تشفير الملفات وتعيد الملفات الأصلية لسلامتها، وتحظر تقنيات الاستغلال الشائعة للثغرات.", ["تقنية CryptoGuard لمنع الفدية فوراً", "محرك تعلم عميق لفحص الملفات", "حظر استغلال ثغرات الذاكرة"], "https://www.sophos.com/en-us/products/endpoint-antivirus"],
+            ["Check Point Infinity Copilot", "cyber", "الأمن السيبراني", "fa-shield-cat", "مساعد أمني مؤتمت لتوليد سياسات الجدار الناري وحل الحوادث الأمنية بذكاء.", "يساعد مسؤولي الشبكات على كتابة سياسات أمنية معقدة عبر المحادثة العادية وإدارة بوابات الحماية.", ["إدارة سياسات الجدار الناري بالمحادثة", "إيقاف الهجمات المعقدة عبر الشبكة", "تحليل الحوادث الأمنية وتقارير الامتثال"], "https://www.checkpoint.com/infinity/copilot"],
+            ["Fortinet FortiAI", "cyber", "الأمن السيبراني", "fa-tower-broadcast", "مساعد عمليات الأمان الذكي لتسريع قرارات فرق الـ SOC وتوجيه التحقيقات الجنائية.", "يحلل التهديدات عبر منظومة Fortinet Fabric ويقترح خطوات معالجة فورية للمسؤولين بدقة متناهية.", ["تسريع عمليات التحقيق لفرق الـ SOC", "تكامل شامل مع أنظمة Fortigate", "صياغة تقارير أمنية تنفيذية"], "https://www.fortinet.com/products/fortiai"],
+            ["Tenable One", "cyber", "الأمن السيبراني", "fa-crosshairs", "إدارة وتصنيف الثغرات الأمنية ومخاطر الأصول وفق احتمالية استغلالها الحقيقي.", "تستخدم خوارزمية Predictive Prioritization لتركز على الـ 3% من الثغرات الخطيرة فعلياً وإصلاحها أولاً.", ["أولوية إصلاح الثغرات الأكثر خطورة", "رؤية شاملة للأصول والمخاطر", "تقييم مستوى النضج الأمني للمؤسسة"], "https://www.tenable.com/products/tenable-one"],
+            ["Splunk Enterprise Security", "cyber", "الأمن السيبراني", "fa-chart-network", "نظام SIEM المعتمد عالمياً لتحليل السجلات الضخمة واكتشاف الشذوذ السلوكي.", "يجمع مليارات سجلات الأنظمة ويطبق نماذج تعلم الآلة لكشف الهجمات المعقدة التي تتجاوز الأنظمة العادية.", ["تحليل السجلات الأمنية الضخمة بالذكاء", "كشف السلوكيات الشاذة والمريبة", "لوحات تحكم وتحقيقات موسعة لفرق العمل"], "https://www.splunk.com/en_us/products/enterprise-security.html"],
+            ["Orca Security AI", "cyber", "الأمن السيبراني", "fa-water", "أمان سحابي متكامل بزاوية 100% بدون عميل يرصد الثغرات والتكوينات الخاطئة.", "تكنولوجيا SideScanning تقرأ الأقراص السحابية وتكتشف كلمات السر المكشوفة والثغرات الحساسة.", ["تغطية سحابية 100% بدون تثبيت Agent", "كشف كلمات المرور والمفاتيح المسربة", "إصلاح التكوينات السحابية الخاطئة بذكاء"], "https://orca.security"],
+            ["Cybereason Defense", "cyber", "الأمن السيبراني", "fa-binoculars", "محرك Malop الحائز على جوائز لتحويل ملايين الإنذارات المعزولة إلى قصة هجوم واحدة.", "يربط أحداث الهجوم عبر آلاف الأجهزة ليعرض لمسؤول الأمان مسار الهجوم كاملاً من نقطة البداية.", ["محرك Malop لربط تفاصيل الهجوم", "صيد متقدم للتهديدات الخفية", "إيقاف مسار الاختراق بضغطة زر واحدة"], "https://www.cybereason.com"],
+            ["Cynet 360 AutoX", "cyber", "الأمن السيبراني", "fa-arrows-spin", "منصة حماية مستقلة ومؤتمتة بالكامل مناسبة للمؤسسات التي لا تمتلك فريق SOC ضخماً.", "تتولى الفحص والتحقيق وعزل الأجهزة المصابة وحذف الملفات الضارة ذاتياً دون حاجة لتدخل بشري دائم.", ["أتمتة الاستجابة الأمنية بالكامل للمنشآت", "عزل الأجهزة المشبوهة وحظر العناوين ذاتياً", "حماية مدمجة تشمل الأجهزة والشبكة"], "https://www.cynet.com"],
+            ["Aqua Security AI", "cyber", "الأمن السيبراني", "fa-box-open", "الرائد في حماية الحاويات (Containers) وبيئات Kubernetes وتأمين سلسلة التوريد.", "تفحص صور الدوكر وتمنع إطلاق الحاويات غير الآمنة وتصد محاولات الاختراق اللحظية للخوادم السحابية.", ["أمان كامل لبيئات Kubernetes وDocker", "فحص الحاويات قبل النشر والتشغيل", "حماية سلسلة توريد البرمجيات"], "https://www.aquasec.com"],
+            ["Qualys TruRisk", "cyber", "الأمن السيبراني", "fa-gauge", "قياس وتقليل المخاطر السيبرانية بدقة عبر مراقبة الثغرات وتحديث البرامج تلقائياً.", "تقوم بفحص ملايين النقاط الطرفية وتطبيق التحديثات والترقيعات البرمجية (Patching) ذاتياً لسد الثغرات.", ["تطبيق التحديثات الأمنية تلقائياً", "قياس مؤشر المخاطر الحقيقي للأجهزة", "فحص مستمر للأجهزة والخوادم السحابية"], "https://www.qualys.com/apps/vulnerability-management-detection-response/"],
+            ["Exabeam New-Scale SIEM", "cyber", "الأمن السيبراني", "fa-user-secret", "الرائد في تحليل سلوك المستخدمين والكيانات (UEBA) لكشف الجواسيس الداخليين.", "يبني خط أساس لسلوك كل موظف، ويكتشف إذا قام أحد الموظفين بنسخ بيانات سرية في وقت غير معتاد.", ["كشف التهديدات الداخلية والموظفين المشبوهين", "تحليل سلوكي للمستخدمين (UEBA)", "جداول زمنية ذكية لتحركات المهاجم"], "https://www.exabeam.com"],
+            ["GitGuardian AI", "cyber", "الأمن السيبراني", "fa-key", "كشف مفاتيح الـ API وكلمات المرور المسربة في مستودعات الأكواد وGitHub فوراً.", "تراقب ملايين الأسطر البرمجية وتمنع المطورين من رفع مفاتيح قواعد البيانات والسيرفرات الحساسة بالخطأ.", ["كشف تسريب مفاتيح الـ API والـ Secrets", "مراقبة مستودعات GitHub العامة والخاصة", "أتمتة تنظيف الأكواد من البيانات الحساسة"], "https://www.gitguardian.com"],
+            ["Cisco AI Defense", "cyber", "الأمن السيبراني", "fa-shield", "بنية الحماية الشبكية فائقة التطور من Cisco لضبط السياسات وفحص الترافيك المشفر.", "تستخدم الذكاء الاصطناعي لفحص الهجمات داخل البيانات المشفرة دون فك التشفير لحماية الخصوصية.", ["كشف البرمجيات الخبيثة بالترافيك المشفر", "سياسات حماية متكيفة مع سلوك الشبكة", "تكامل مع أجهزة وشبكات Cisco العالمية"], "https://www.cisco.com/site/us/en/products/security/index.html"],
+
+            // ================= 1. صور وجرافيك (25 أداة) =================
+            ["Midjourney", "img", "الصور والتصميم", "fa-palette", "الأقوى عالمياً في توليد الصور الفنية والسينمائية الواقعية.", "يحاكي الإضاءات المعقدة والتفاصيل الدقيقة بدقة لا مثيل لها عبر الديسكورد.", ["دقة سينمائية مذهلة", "تحكم بالأنماط الفنية", "خاصية Inpainting"], "https://www.midjourney.com"],
+            ["FLUX.1", "img", "الصور والتصميم", "fa-wand-magic-sparkles", "الجيل الجديد مفتوح المصدر المتميز برسم النصوص وتشريح الأيدي.", "تطوير فريق Stability السابق، يتفوق في فهم النصوص والأوصاف الواقعية المعقدة.", ["كتابة نصوص دقيقة بالصورة", "تشريح واقعي للأصابع", "مفتوح المصدر وسريع"], "https://blackforestlabs.ai"],
+            ["Ideogram 2.0", "img", "الصور والتصميم", "fa-font", "الخيار الأول في العالم لتصميم الشعارات والتايبوجرافي والبوسترات.", "تفوقت في رسم الكلمات الإنجليزية بدقة داخل التصاميم والملصقات الإعلانية.", ["تصميم نصوص ولوجوهات نقية", "أنماط تايبوجرافي متعددة", "توليد تصاميم التيشرتات"], "https://ideogram.ai"],
+            ["DALL-E 3", "img", "الصور والتصميم", "fa-shapes", "نموذج OpenAI المدمج في ChatGPT لفهم الأوامر الطويلة وتعديلها.", "يتكامل مع الدردشة ليسمح بتعديل أجزاء الصورة بمجرد التحدث مع الذكاء الاصطناعي.", ["فهم سياقي عميق للأوامر", "تعديل فوري بالدردشة", "تكامل مباشر مع ChatGPT"], "https://openai.com/dall-e-3"],
+            ["Adobe Firefly", "img", "الصور والتصميم", "fa-bezier-curve", "محرك أدوبي الآمن تجارياً لملء وتوسيع الصور في فوتوشوب.", "مدرب على مكتبة أدوبي ستوك المرخصة، وهو الأداة الأساسية للمصممين التجاريين.", ["تعبئة توليدية Generative Fill", "آمن تجارياً 100%", "توسيع زوايا الصور"], "https://www.adobe.com/sensei/generative-ai/firefly.html"],
+            ["Leonardo.ai", "img", "الصور والتصميم", "fa-gamepad", "بيئة احترافية لتصميم أصول الألعاب والشخصيات ذات الملامح الثابتة.", "تتيح تدريب نماذجك الخاصة وتوليد شخصيات متناسقة الملامح عبر عدة لقطات.", ["توليد فوري أثناء الرسم", "تثبيت ملامح الشخصيات", "تصميم أصول ألعاب 3D"], "https://leonardo.ai"],
+            ["Magnific AI", "img", "الصور والتصميم", "fa-magnifying-glass-plus", "تكبير دقة الصور حتى 16K مع إعادة تخيل التفاصيل والمسام المفقودة.", "يعيد رسم تفاصيل الجلد وانعكاسات الضوء لتتحول الصور الباهتة إلى لقطات كاميرا خارقة.", ["ترقية دقة حتى 16 ضعفاً", "إعادة ابتكار مسام وتفاصيل واقعية", "ترميم اللقطات القديمة"], "https://magnific.ai"],
+            ["Recraft.ai", "img", "الصور والتصميم", "fa-vector-square", "توليد الرسوم المتجهية (Vector) والأيقونات القابلة للتكبير بصيغة SVG.", "مخصص لمصممي UI/UX؛ يمنحك تصاميم فيكتور ثلاثية وثنائية الأبعاد بألوان هويتك.", ["تصدير بصيغة SVG نقية", "توليد حزم أيقونات متناسقة", "تحكم بنظام ألوان البراند"], "https://www.recraft.ai"],
+            ["Stable Diffusion 3", "img", "الصور والتصميم", "fa-microchip", "النموذج مفتوح المصدر الأكثر قابلية للتخصيص والتثبيت على الحواسيب.", "يمنحك تحكماً مطلقاً بالصور عبر تقنيات ControlNet وتدريب نماذج LoRA الخاصة.", ["قابل للتشغيل محلياً", "دعم إضافات ControlNet", "حرية كاملة دون قيود"], "https://stability.ai"],
+            ["Photoroom", "img", "الصور والتصميم", "fa-bag-shopping", "الأداة الأولى لأصحاب المتاجر لتفريغ صور المنتجات وإضافة خلفيات استوديو.", "تفرغ الخلفية بذكاء مذهل وتضع المنتج في بيئة إعلانية ترفع المبيعات بنقرة واحدة.", ["تفريغ الخلفية بدقة فائقة", "خلفيات استوديو تجارية", "تعديل مئات الصور دفعة واحدة"], "https://www.photoroom.com"],
+            ["Krea AI", "img", "الصور والتصميم", "fa-pencil", "الرسم التوليدي بالوقت الفعلي مع تحسين فوري للفيديو وجودة الصور.", "بمجرد تحريك الفرشاة على الشاشة تظهر لوحة فنية مكتملة في نفس اللحظة بأقل من ثانية.", ["توليد مباشر بدون انتظار", "أداة Realtime AI Canvas", "رفع جودة الصور والفيديو"], "https://www.krea.ai"],
+            ["Clipdrop", "img", "الصور والتصميم", "fa-toolbox", "حزمة أدوات ذكية لإزالة الأشخاص، تصحيح الإضاءة، وإعادة تخيل الصور.", "منصة تضم أكثر من 10 أدوات سريعة لإصلاح أي عيب في الصورة أو تحويلها لبدائل إبداعية.", ["إزالة العناصر غير المرغوبة", "إعادة ضبط إضاءة المشهد", "استخراج خريطة العمق"], "https://clipdrop.co"],
+            ["Playground AI", "img", "الصور والتصميم", "fa-layer-group", "محرر صور تفاعلي يمزج بين الصور المولدة والتعديل اليدوي في لوحة واحدة.", "يتيح دمج عناصر حقيقية مع عناصر خيالية عبر مساحة عمل مفتوحة ومرنة للمبدعين.", ["لوحة تصميم لا نهائية", "مزج عناصر متعددة", "فلاتر وأنماط جاهزة"], "https://playground.com"],
+            ["SeaArt AI", "img", "الصور والتصميم", "fa-brush", "منصة متكاملة لتوليد الصور بأساليب الأنمي، الواقعية، والفن الرقمي مجاناً.", "تضم مكتبة ضخمة جداً من النماذج المدربة مسبقاً من مجتمعات الفنانين الرقميين.", ["مكتبة نماذج ضخمة", "أدوات متقدمة لتعديل الوجوه", "توليد سريع ومجاني"], "https://www.seaart.ai"],
+            ["Tensor.art", "img", "الصور والتصميم", "fa-server", "تشغيل نماذج Stable Diffusion السحابية مجاناً دون الحاجة لكرت شاشة قوي.", "توفر آلاف الموديلات والـ LoRA لتجربة كل أشكال الفن الرقمي والأنمي والواقعية.", ["تشغيل سحابي مجاني", "آلاف النماذج الجاهزة", "تطبيق سهل من المتصفح"], "https://tensor.art"],
+            ["Vectorizer.ai", "img", "الصور والتصميم", "fa-draw-polygon", "تحويل الصور البكسلية (PNG/JPG) إلى رسوم فيكتور SVG دقيقة هندسياً.", "تحول الشعارات المشوشة إلى ملفات طباعة متجهة فائقة الحدة بنقرة زر واحدة.", ["تحويل بكسل إلى فيكتور نقي", "معالجة التعرجات الهندسية", "جاهز للمطابع ومكائن الليزر"], "https://vectorizer.ai"],
+            ["Topaz Gigapixel AI", "img", "الصور والتصميم", "fa-expand", "برنامج احترافي لتكبير الصور حتى 600% دون فقدان الحدة والوضوح.", "يعتمد على شبكات عصبية تملأ الفراغات بالبكسلات المفقودة للطباعة الضخمة.", ["تكبير بدون تشويش إطلاقاً", "مثالي للمصورين والمطابع", "معالجة دفعات الصور"], "https://www.topazlabs.com/gigapixel-ai"],
+            ["Stylar AI (Dzine)", "img", "الصور والتصميم", "fa-wand-magic", "التحكم الموجه في أسلوب وتكوين الصورة وتغيير ملابس الشخصيات بسهولة.", "تمنحك التحكم الدقيق في وضعية الجسم والضوء مع واجهة سهلة للمصممين المبتدئين.", ["دمج سلس للصور بأسلوب موحد", "تغيير أزياء الشخصيات", "تحكم بتكوين المشهد"], "https://www.dzine.ai"],
+            ["Looka", "img", "الصور والتصميم", "fa-gem", "تصميم هويات بصرية ولوجوهات احترافية كاملة مع ملحقات القرطاسية بذكاء.", "تولد مئات الشعارات بناءً على تفضيلاتك وتمنحك كتاب إرشادات الهوية البصرية كاملاً.", ["توليد شعارات احترافية", "بناء هوية بصرية متكاملة", "تصاميم كروت وبانرات جاهزة"], "https://looka.com"],
+            ["Brandmark", "img", "الصور والتصميم", "fa-copyright", "محرك إنشاء لوجوهات عصرية ذات طابع بسيط وحفظها بجميع صيغ التصميم.", "يقوم بتوليد شعارات بسيطة وأنيقة مع اختيار أنظمة ألوان وخطوط طباعية متناسقة.", ["لوجوهات Minimalist عصرية", "تصدير بصيغ فيكتور وPDF", "نظام ألوان متناسق للبراند"], "https://brandmark.io"],
+            ["Remove.bg", "img", "الصور والتصميم", "fa-eraser", "الأداة الأكثر موثوقية في العالم لمسح وعزل الخلفيات من الصور في 5 ثوانٍ.", "تفصل الشعر والأطراف المعقدة بدقة متناهية دون الحاجة لأي تدخل يدوي.", ["إزالة الخلفية في ثوانٍ", "دقة ممتازة في عزل الشعر", "تكامل API للمطورين"], "https://www.remove.bg"],
+            ["Let's Enhance", "img", "الصور والتصميم", "fa-arrow-up-right-dots", "تحسين جودة الصور الباهتة وتعديل ألوانها وتكبير حجمها بنقرة واحدة.", "تزيل ضغط الـ JPEG المشوش وتصلح الألوان لتصبح اللقطات جاهزة للمشاركة والنشر.", ["إزالة تشويش الضغط", "تحسين الإضاءة التلقائي", "رفع الدقة حتى 4K و8K"], "https://letsenhance.io"],
+            ["Artbreeder", "img", "الصور والتصميم", "fa-dna", "خلط ودمج الصور والشخصيات جينياً لإنتاج كائنات ووجوه جديدة وفريدة.", "تتيح التلاعب بملامح الوجه، العمر، والأعراق عبر أشرطة تمرير تفاعلية مذهلة.", ["مزج جيني للصور والوجوه", "تعديل الملامح والأعمار", "بيئة تفاعلية للمبدعين"], "https://www.artbreeder.com"],
+            ["Canva Magic Studio", "img", "الصور والتصميم", "fa-object-group", "المنظومة الذكية الكاملة داخل كانفا لتعديل وتحريك وإعادة تشكيل التصاميم.", "تتيح مسح أي عنصر، وتغيير أبعاد التصميم لكافة المنصات، وإنتاج قوالب بلمسة واحدة.", ["تعديل وتحريك ذكي للتصاميم", "تغيير مقاسات المنشورات بضغطة زر", "توليد عروض وقوالب بالذكاء"], "https://www.canva.com/magic-studio"],
+            ["Craiyon", "img", "الصور والتصميم", "fa-lightbulb", "أداة مجانية وبسيطة تماماً لإنشاء الصور الكرتونية والرمزية من النصوص بسرعة.", "النسخة المبسطة المفتوحة من DALL-E لإنتاج أفكار وتصاميم سريعة دون تعقيد.", ["مجانية وسريعة الاستخدام", "رسم تخطيطي للأفكار", "توليد تصاميم متنوعة"], "https://www.craiyon.com"],
+
+            // ================= 2. الفيديو والمونتاج (25 أداة) =================
+            ["Runway Gen-3", "video", "الفيديو والمونتاج", "fa-clapperboard", "رائد صناعة الفيديو السينمائي عالي الدقة بالتحكم بزوايا الكاميرا.", "الأداة الأولى في استوديوهات هوليوود والإعلانات لإنتاج لقطات تحاكي السينما تماماً.", ["تحكم سينمائي بالكاميرا", "توليد فيديو حتى دقة 4K", "حركة انسيابية للشخصيات"], "https://runwayml.com"],
+            ["Luma Dream Machine", "video", "الفيديو والمونتاج", "fa-video", "محاكي واقعي فائق السرعة لحركة الأشخاص والفيزياء الطبيعية للأجسام.", "يحول الصور الثابتة إلى لقطات حركية فائقة السلاسة بزمن قياسي وبواقعية عالية.", ["فيزياء طبيعية متقنة", "سرعة توليد مذهلة", "تحريك ممتاز للمركبات"], "https://lumalabs.ai/dream-machine"],
+            ["Kling AI", "video", "الفيديو والمونتاج", "fa-dragon", "نموذج صيني عملاق يولد فيديوهات تصل لدقيقتين بحركات جسدية معقدة.", "تغلب على مشكلات الأكل والتفاعل الجسدي والطهي وحركات اليد في الفيديو.", ["مقاطع طويلة حتى دقيقتين", "حركة فيزيائية واقعية للجسد", "دقة 1080p عالية النقاء"], "https://klingai.com"],
+            ["Hailuo AI (Minimax)", "video", "الفيديو والمونتاج", "fa-camera-movie", "الأكثر واقعية على الإطلاق في تعابير وجوه البشر وتجنب التشويهات.", "أحدث صدمة بقدرته على محاكاة تعابير الوجه السينمائية وحركات الكاميرا المعقدة.", ["وجوه سينمائية بلا أخطاء", "انسيابية حركة مذهلة", "التوليد من نصوص أو صور"], "https://hailuoai.video"],
+            ["HeyGen", "video", "الفيديو والمونتاج", "fa-user-tie", "صناعة مذيعين بشريين ناطقين ودبلجة الفيديوهات مع مزامنة الشفاه.", "تنشئ فيديوهات تسويقية وتدريبية بأشخاص افتراضيين ناطقين بأكثر من 40 لغة.", ["أفاتار رقمي فائق الواقعية", "ترجمة ودبلجة الشفاه التلقائية", "نطق سليم للغة العربية"], "https://www.heygen.com"],
+            ["Pika Labs", "video", "الفيديو والمونتاج", "fa-film", "تطبيق مؤثرات بصرية مدهشة (إذابة، تفجير، سحق) وتعديل مناطق بالفيديو.", "تمنح المبدعين أدوات مرحة ومحترفة لتحريك أجزاء معينة وتوليد أصوات المشهد.", ["مؤثرات Pika Effects السحرية", "تعديل مناطق محددة بالفيديو", "توليد المؤثرات الصوتية تلقائياً"], "https://pika.art"],
+            ["CapCut AI", "video", "الفيديو والمونتاج", "fa-mobile-screen", "مونتاج مقاطع التيك توك وReels مع تفريغ النصوص التلقائي التفاعلي.", "أداة صناع المحتوى الأولى؛ توفر كتابة ترجمة تلقائية متحركة وتلوين المشاهد.", ["نصوص الترجمة التلقائية (Captions)", "إزالة الخلفيات بضغطة واحدة", "قوالب تريندات جاهزة"], "https://www.capcut.com"],
+            ["Descript", "video", "الفيديو والمونتاج", "fa-scissors", "مونتاج الفيديو عبر تعديل وحذف الكلمات من النص المفرغ كملف Word.", "احذف أي كلمة من النص لتختفي من الفيديو، مع ميزة ضبط اتجاه نظر العين.", ["مونتاج الفيديو عبر تحرير النص", "حذف الترددات (Um/Ah) فوراً", "تعديل اتجاه النظر للكاميرا"], "https://www.descript.com"],
+            ["Synthesia", "video", "الفيديو والمونتاج", "fa-user-gear", "منصة الشركات لإنتاج مقاطع التدريب والعروض بمقدمين افتراضيين.", "تغنيك عن استئجار الاستوديوهات والكاميرات لإنتاج محتوى تدريبي للموظفين.", ["أكثر من 150 أفاتار متنوع", "دعم 120 لغة ولهجة", "واجهة سهلة للشركات"], "https://www.synthesia.io"],
+            ["InVideo AI", "video", "الفيديو والمونتاج", "fa-photo-film", "تحويل الأفكار والمقالات إلى فيديوهات كاملة بالمشاهد والتعليق الصوتي.", "اكتب عنوان موضوعك ليقوم بكتابة السكريبت، اختيار المشاهد، وتركيب الصوت.", ["إنتاج فيديو كامل من مجرد فكرة", "تعليق صوتي وموسيقى مدمجة", "تعديل المشاهد بنصوص الأوامر"], "https://invideo.io"],
+            ["Viggle AI", "video", "الفيديو والمونتاج", "fa-person-walking", "جعل أي شخصية في صورة ثابتة ترقص وتتحرك مثل أي فيديو مرجعي.", "تتيح استبدال أي شخص يرقص أو يتحرك في فيديو بشخصيتك أو شخصية كرتونية بدقة.", ["استبدال الشخصيات في الفيديوهات", "تطبيق حركات الرقص والمشي", "توليد مقاطع ميمز مضحكة"], "https://viggle.ai"],
+            ["Kaiber", "video", "الفيديو والمونتاج", "fa-wand-sparkles", "تحويل الفيديوهات الحقيقية إلى رسوم متحركة خيالية وأسلوب أنمي جذاب.", "تستخدمها فرق الموسيقى العالمية لإنتاج كليبات أنيميشن بصرية فريدة من نوعها.", ["تحويل الفيديو إلى أنمي وكرتون", "تزامن الحركة مع إيقاع الموسيقى", "أنماط فنية إبداعية متنوعة"], "https://kaiber.ai"],
+            ["D-ID", "video", "الفيديو والمونتاج", "fa-id-badge", "تحريك الصور الثابتة والوجوه التاريخية لتتحدث بنبرة وصوت حقيقي.", "تستخدم لإنشاء شخصيات خدمة عملاء متفاعلة أو إحياء صور الأجداد والشخصيات.", ["تحريك الوجوه من صورة ثابتة", "تزامن شفاه فائق الدقة", "ربط مباشر مع الشات بوتس"], "https://www.d-id.com"],
+            ["Fliki", "video", "الفيديو والمونتاج", "fa-bullhorn", "تحويل التغريدات والمقالات النصية إلى مقاطع فيديو مع تعليق صوتي واقعي.", "تعتمد على مكتبة وسائط هائلة وتتيح إنتاج مقاطع فيديو سريعة لمنصات التواصل.", ["تحويل المقالات لفيديوهات", "أصوات واقعية بالذكاء", "إنتاج سريع لمحتوى السوشيال"], "https://fliki.ai"],
+            ["Opus Clip", "video", "الفيديو والمونتاج", "fa-film-simple", "تقطيع الفيديوهات والبودكاست الطويلة إلى مقاطع Shorts وReels فيروسية.", "تكتشف أفضل اللحظات الحماسية وتضيف نصوصاً ملونة ورموزاً تعبيرية لجذب المشاهدين.", ["استخراج أفضل اللحظات تلقائياً", "نصوص ملونة وإيموجي متفاعلة", "تحديد نسبة انتشار الفيديو (Virality)"], "https://www.opus.pro"],
+            ["Veed.io", "video", "الفيديو والمونتاج", "fa-play", "استوديو مونتاج متكامل بالمتصفح يزيل الضوضاء ويضيف ترجمات تلقائية.", "منصة سهلة جداً لصناع المحتوى لتنقية الصوت، وتوليد نصوص متحركة، وتعديل الأبعاد.", ["ترجمة تلقائية بجميع اللغات", "تنقية الصوت وإزالة الصدى", "قوالب سوشيال ميديا سريعة"], "https://www.veed.io"],
+            ["LivePortrait", "video", "الفيديو والمونتاج", "fa-face-smile", "نقل تعابير الوجه وحركة الرأس من أي فيديو إلى صورة ثابتة بدقة حية.", "تقنية مفتوحة المصدر تنقل الغمزات وحركات الفم بدقة مدهشة إلى اللوحات والصور.", ["نقل التعابير وحركات الرأس بدقة", "حفاظ ممتاز على جودة الصورة الأصلية", "مفتوح المصدر وخارق السرعة"], "https://liveportrait.github.io"],
+            ["Topaz Video AI", "video", "الفيديو والمونتاج", "fa-sliders", "ترقية دقة الفيديوهات القديمة إلى 4K ومضاعفة الإطارات حتى 60fps.", "البرنامج الاحترافي الأقوى لترميم الفيديوهات الأرشيفية وإزالة التشويش الحركي.", ["ترقية الفيديوهات حتى 4K و8K", "تحويل الحركة البطيئة إلى 60/120fps", "إزالة الاهتزاز والتشويش الأرشيفي"], "https://www.topazlabs.com/topaz-video-ai"],
+            ["Captions.ai", "video", "الفيديو والمونتاج", "fa-closed-captioning", "تطبيق ذكي لإضافة نصوص متحركة احترافية وإصلاح النظر نحو الكاميرا.", "محبوب لدى منشئي محتوى تيك توك وإنستغرام لتنسيق الفيديوهات بأسلوب جذاب وسريع.", ["نصوص متحركة تجذب الانتباه", "تصحيح نظرة العين للكاميرا", "تصفية وتنقية الصوت التلقائية"], "https://www.captions.ai"],
+            ["Submagic", "video", "الفيديو والمونتاج", "fa-quote-right", "توليد نصوص وشروحات Shorts مع إضافة مؤثرات صوتية وB-rolls تلقائياً.", "يحلل نبرة الكلام ويضع أصوات 'Woosh' ومؤثرات وصور توضيحية لزيادة مدة المشاهدة.", ["إضافة مؤثرات صوتية تلقائية", "إدراج لقطات B-roll ذكية", "خطوط نصوص المشاهير (Alex Hormozi)"], "https://www.submagic.co"],
+            ["Pictory", "video", "الفيديو والمونتاج", "fa-newspaper", "تحويل نصوص مقالات المدونات إلى مقاطع فيديو تسويقية قصيرة متوافقة للسيو.", "يستخرج النقاط المحورية من المقال ويطابقها بمشاهد فيديو مرخصة مع كتابة النصوص.", ["تحويل المقالات لفيديوهات تلخيصية", "إعادة تدوير المحتوى القديم", "أرشفة أفضل في محركات البحث"], "https://pictory.ai"],
+            ["Wonder Dynamics", "video", "الفيديو والمونتاج", "fa-robot", "دمج شخصيات CGI ثلاثية الأبعاد مكان الممثلين الحقيقيين في أي مشهد واقعي.", "يتعرف على حركة الممثل والإضاءة ويستبدله بمجسم كرتوني أو فضائي ثلاثي الأبعاد تلقائياً.", ["استبدال الممثلين بمجسمات CGI", "تتبع الحركة وتطابق الإضاءة تلقائياً", "توفير ميزانيات الخدع السينمائية الضخمة"], "https://wonderdynamics.com"],
+            ["DeepBrain AI", "video", "الفيديو والمونتاج", "fa-headset", "مذيعون إخباريون وشخصيات افتراضية لتقديم نشرات الأخبار والبرامج.", "تتعاون مع كبرى القنوات العالمية لإنشاء مذيعين رقميين يقرؤون نشرات الأخبار على مدار الساعة.", ["مذيعون إخباريون واقعيون", "جاهزية للبث التلفزيوني المباشر", "توليد سريع من نصوص المقالات"], "https://www.deepbrain.ai"],
+            ["Animate Anyone", "video", "الفيديو والمونتاج", "fa-person-dots-from-line", "تحريك أي شخصية في صورة كرتونية أو حقيقية مع الحفاظ على قوامها وملابسها.", "ابتكار ثوري من Alibaba يجعل الشخصيات الثابتة تتحرك وتقفز وتؤدي حركات دون أي تشوه.", ["حفظ تفاصيل الملابس والأطراف", "حركات بهلوانية ورقص معقد", "تحريك الشخصيات الكرتونية والخيالية"], "https://github.com/HumanAIGC/AnimateAnyone"],
+            ["Sora (OpenAI)", "video", "الفيديو والمونتاج", "fa-eye", "النموذج الأكثر تقدماً في محاكاة فيزياء العالم الحقيقي والتصوير السينمائي.", "يولد مشاهد هوليوودية متكاملة تتفاعل فيها الإضاءات والانعكاسات مع حركة الشخصيات.", ["محاكاة فيزياء العالم بدقة متناهية", "مشاهد سينمائية بطول دقيقة كاملة", "أعلى معيار للواقعية في العالم"], "https://openai.com/sora"],
+
+            // ================= 3. البرمجة والتطوير (25 أداة) =================
+            ["Cursor AI", "code", "البرمجة والتطوير", "fa-laptop-code", "محرر الأكواد الأقوى حالياً الذي يفهم هيكل مشروعك البرمجي بالكامل.", "مبني على VS Code ويقوم بكتابة وتعديل وتصحيح الأخطاء عبر عدة ملفات في وقت واحد.", ["فهم سياق المشروع Codebase بالكامل", "تعديل عدة ملفات برمجية معاً", "دعم أحدث نماذج Claude و GPT-4o"], "https://www.cursor.com"],
+            ["GitHub Copilot", "code", "البرمجة والتطوير", "fa-terminal", "المساعد البرمجي الرسمي لـ Microsoft وGitHub المفضل لمليون مبرمج.", "يكمل كتابة الدوال تلقائياً، ويشرح الكود الغامض، ويكتب اختبارات الفحص Unit Tests.", ["إكمال سطور الكود لحظياً", "توليد اختبارات الفحص تلقائياً", "مدمج بكافة محررات الأكواد الشهيرة"], "https://github.com/features/copilot"],
+            ["v0 by Vercel", "code", "البرمجة والتطوير", "fa-code", "توليد واجهات المستخدم React & Tailwind CSS التفاعلية من الأوامر.", "تصف الواجهة التي تريدها، فيبرمج لك كوداً نظيفاً وقابلاً للتصدير الفوري لمشاريعك.", ["توليد كود React وTailwind نقي", "معاينة حية وفورية في المتصفح", "مكونات عصرية من مكتبة Shadcn UI"], "https://v0.dev"],
+            ["Bolt.new", "code", "البرمجة والتطوير", "fa-bolt", "بناء ونشر تطبيقات Full-Stack كاملة داخل المتصفح من خلال الأوامر.", "بيئة Node.js حقيقية تشغل الواجهة وقواعد البيانات وتمنحك رابطاً حياً للتطبيق بلحظات.", ["تطبيقات Full-Stack كاملة من الصفر", "بيئة تشغيل سحابية بالمتصفح", "نشر التطبيق برابط مباشر بضغطة زر"], "https://bolt.new"],
+            ["Lovable.dev", "code", "البرمجة والتطوير", "fa-heart", "بناء تطبيقات ومواقع ويب احترافية مع ربط Supabase كقاعدة بيانات.", "أداة عصرية تمكنك من برمجة تطبيقات ويب فائقة الجمال والسرعة بمجرد المحادثة.", ["ربط مباشر مع قواعد بيانات Supabase", "واجهات مستخدم مذهلة بصرياً", "إطلاق المنتجات الرقمية بسرعة خيالية"], "https://lovable.dev"],
+            ["Codeium / Windsurf", "code", "البرمجة والتطوير", "fa-shield-halved", "محرر Windsurf الثوري المجاني للأفراد لبرمجة المهام ذاتياً.", "يقدم مفهوم 'Flows' الذي يجعل الذكاء الاصطناعي يفكر كمهندس برمجيات حقيقي ينفذ المطلوب.", ["خطة فردية مجانية سخية جداً", "ميزة Flows للتطوير الذاتي", "سرعة استجابة مذهلة في إكمال الكود"], "https://codeium.com"],
+            ["Replit Agent", "code", "البرمجة والتطوير", "fa-cubes", "وكيل برمجي ذاتي يتولى تهيئة السيرفرات وتطوير التطبيقات من الصفر.", "تكتب له فكرة التطبيق فيقوم بتثبيت الحزم وبرمجة الواجهة والخلفية وتشغيل التطبيق.", ["برمجة ذاتية من الفكرة حتى الإطلاق", "إدارة السيرفرات والبيئة السحابية", "العمل وإدارة المشاريع حتى من الهاتف"], "https://replit.com"],
+            ["Tabnine", "code", "البرمجة والتطوير", "fa-keyboard", "مساعد إكمال الأكواد الآمن والمخصص للمؤسسات ذات الخصوصية الصارمة.", "يعمل محلياً دون تسريب بيانات الشركة، ويتعلم من الأسلوب البرمجي لفريق العمل.", ["حماية وخصوصية تامة للأكواد", "يعمل داخل شبكات الشركات المغلقة", "تكامل مع كافة بيئات التطوير"], "https://www.tabnine.com"],
+            ["Supermaven", "code", "البرمجة والتطوير", "fa-gauge-high", "أسرع أداة إكمال أكواد في العالم مع نافذة ذاكرة ضخمة تصل لمليون رمز.", "تمتاز بسرعة استجابة تكاد تكون فورية (0ms) وفهم عميق جداً لجميع ملفات المشروع.", ["سرعة استجابة فائقة السرعة", "نافذة سياق ضخمة (300k+ رمز)", "إكمال أسطر دوال برمجية كاملة"], "https://supermaven.com"],
+            ["Aider", "code", "البرمجة والتطوير", "fa-terminal", "أداة سطر أوامر (CLI) برمجية لتعديل مشاريع الـ Git المحلية بالذكاء.", "تتحدث معها في الـ Terminal فتقوم بتعديل الملفات وعمل Git Commit تلقائياً مع وصف ذكي.", ["تحكم مباشر عبر سطر الأوامر", "عمل Git Commits تلقائية موثقة", "دعم نماذج Claude 3.5 و GPT-4o"], "https://aider.chat"],
+            ["CodeRabbit", "code", "البرمجة والتطوير", "fa-code-pull-request", "مراجعة تلقائية ذكية لأكواد الـ Pull Requests وكشف الثغرات والعيوب.", "ينضم كعضو في فريقك على GitHub ليفحص كل سطر كود ويقترح تحسينات دقيقة قبل الدمج.", ["مراجعة فورية لطلبات الـ PR", "كشف الثغرات الأمنية ومشاكل الأداء", "شرح وتلخيص التعديلات البرمجية"], "https://coderabbit.ai"],
+            ["Qodo (CodiumAI)", "code", "البرمجة والتطوير", "fa-vial-circle-check", "توليد اختبارات الكود (Test Cases) الشاملة وكشف الحالات النادرة.", "تساعد المطورين على كتابة Unit Tests و Integration Tests لضمان كود خالٍ من المشكلات.", ["إنشاء اختبارات برمجية شاملة", "كشف الحالات الحرجة Edge Cases", "تحسين ثقة المطور بجودة الكود"], "https://www.qodo.ai"],
+            ["Phind", "code", "البرمجة والتطوير", "fa-magnifying-glass-chart", "محرك بحث مخصص للمبرمجين يحل المشاكل البرمجية مع روابط التوثيق.", "بديل ذكي لموقع Stack Overflow؛ يقدم حلولاً مباشرة مع كود جاهز وروابط المكتبات الرسمية.", ["إجابات برمجية فورية مع الكود", "ربط مباشر بالتوثيق الرسمي للغات", "حل رسائل الأخطاء المستعصية"], "https://www.phind.com"],
+            ["Pieces for Developers", "code", "البرمجة والتطوير", "fa-puzzle-piece", "إدارة وحفظ وتصنيف مقتطفات الأكواد البرمجية مع السياق وفهم ذكي لها.", "تطبيق يحفظ أجزاء الكود الهامة التي تستخدمها، ويولد لها وسوماً وشروحاً تلقائية.", ["حفظ مقتطفات الكود بسياقها", "البحث الذكي داخل الأكواد المخزنة", "تكامل مع المتصفح وبيئة التطوير"], "https://pieces.app"],
+            ["Mintlify", "code", "البرمجة والتطوير", "fa-book", "توليد وتوثيق المستندات البرمجية والـ API تلقائياً بتصاميم عصرية جذابة.", "تحول أكوادك ومشاريعك إلى صفحات توثيق برمجية فائقة الجمال والوضوح تشبه توثيق Stripe.", ["توثيق تلقائي للأكواد والـ APIs", "واجهات توثيق أنيقة وسريعة", "تكامل مباشر مع مستودعات GitHub"], "https://mintlify.com"],
+            ["Blackbox AI", "code", "البرمجة والتطوير", "fa-box", "استخراج الأكواد من مقاطع فيديو الشروحات ونسخ النصوص من الصور البرمجية.", "أداة سريعة للمطورين لنسخ أي كود يظهر في فيديوهات يوتيوب أو لقطات الشاشة في ثانية.", ["نسخ الكود من شاشات الفيديو", "محرك بحث سريع عن الأكواد", "إكمال ذكي للغات متعددة"], "https://www.blackbox.ai"],
+            ["Warp Terminal", "code", "البرمجة والتطوير", "fa-square-terminal", "تيرمينال عصري فائق التطور مدمج بالذكاء الاصطناعي لكتابة وشرح الأوامر.", "يحول سطر الأوامر التقليدي إلى بيئة كتابة ذكية تتيح البحث بالأوامر عبر لغتك العادية.", ["كتابة أوامر Bash باللغة العادية", "شرح رسائل أخطاء السيرفرات", "بيئة عمل تشاركية للمطورين"], "https://www.warp.dev"],
+            ["SQLAI.ai", "code", "البرمجة والتطوير", "fa-database", "توليد استعلامات قواعد البيانات SQL المعقدة وتحسين أدائها بمجرد السؤال.", "اطلب ما تريد استخراجه من البيانات باللغة الطبيعية ليقوم بصياغة كود SQL سليم.", ["توليد استعلامات SQL بسرعة", "تحسين سرعة الاستعلامات البطيئة", "شرح الاستعلامات المعقدة"], "https://www.sqlai.ai"],
+            ["AI2sql", "code", "البرمجة والتطوير", "fa-table", "تحويل الأسئلة العادية إلى أوامر SQL تدعم MySQL وPostgres وOracle.", "أداة موجهة لمديري المنتجات والمحللين لاستخراج البيانات دون الحاجة لتعلم الـ SQL.", ["دعم كافة محركات قواعد البيانات", "تسهيل كتابة الاستعلامات بدون خبرة", "توليد تقارير سريعة"], "https://www.ai2sql.io"],
+            ["GitKraken AI", "code", "البرمجة والتطوير", "fa-code-branch", "إدارة فروع Git وحل التعارضات البرمجية وتوليد رسائل الـ Commit ذكياً.", "أقوى واجهة رسومية للـ Git، أصبحت تولد وصفاً دقيقاً للتغييرات البرمجية وتكشف الأخطاء.", ["حل تعارضات الدمج بذكاء", "كتابة رسائل الـ Commit التلقائية", "فهم مسار تطور المشروع بصرياً"], "https://www.gitkraken.com"],
+            ["Sweep AI", "code", "البرمجة والتطوير", "fa-broom", "تحويل تذاكر الأخطاء في GitHub Issues إلى Pull Requests جاهزة للدمج.", "يقرأ وصف العطل من التذكرة ويبحث في الكود ويصلح المشكلة ويرفع التعديل للمراجعة.", ["إصلاح أخطاء الـ Bug تلقائياً", "تنظيف الأكواد غير المستخدمة", "توفير وقت الصيانة للمطورين"], "https://sweep.dev"],
+            ["Continue.dev", "code", "البرمجة والتطوير", "fa-plug", "إضافة مفتوحة المصدر لربط أي نموذج ذكاء اصطناعي محلي أو سحابي بـ VS Code.", "تتيح لك استخدام نماذج Ollama المحلية أو نماذج Claude بحرية تامة داخل محرر كودك.", ["مفتوح المصدر بالكامل", "ربط نماذج الذكاء المحلية والمجانية", "حرية تامة في اختيار المزود"], "https://www.continue.dev"],
+            ["Amazon Q Developer", "code", "البرمجة والتطوير", "fa-aws", "مساعد أمازون المتخصص في هندسة السحاب وترقية إصدارات Java وAWS.", "الخيار الأفضل للمهندسين العاملين على خدمات سحابة أمازون وترقية التطبيقات القديمة.", ["خبير معتمد في خدمات سحابة AWS", "ترقية إصدارات تطبيقات Java تلقائياً", "حماية أمنية وتوافق مؤسسي"], "https://aws.amazon.com/q/developer"],
+            ["Sourcegraph Cody", "code", "البرمجة والتطوير", "fa-binary", "فهم والبحث في ملايين أسطر الكود عبر مستودعات الشركات العملاقة.", "يتيح لك التحدث مع كامل شفرة مؤسستك المصدرية الموزعة عبر آلاف المستودعات البرمجية.", ["بحث سياقي عبر مستودعات ضخمة", "شرح الأنظمة البرمجية القديمة", "أمان وحماية صارمة للأكواد"], "https://sourcegraph.com/cody"],
+            ["Devika (Open Source)", "code", "البرمجة والتطوير", "fa-brain", "مهندس برمجي مستقل مفتوح المصدر يبحث وينفذ المشاريع البرمجية كاملة.", "المشروع المفتوح البديل لـ Devin؛ يحلل المتطلبات، يبرمج الحل، ويفحص النتيجة بنفسه.", ["مفتوح المصدر ومجاني", "تفكير وتخطيط برمجي مستقل", "أتمتة بناء التطبيقات الصغيرة"], "https://github.com/stitionai/devika"],
+
+            // ================= 4. الكتابة والتدوين (25 أداة) =================
+            ["ChatGPT (GPT-4o)", "write", "الكتابة والتدوين", "fa-comments", "النموذج الأكثر تنوعاً في العالم للتحليل وصياغة المحتوى وإدارة المهام.", "يتعامل مع النصوص والصوت والصور في الوقت الفعلي مع ملايين الـ GPTs المتخصصة.", ["ذكاء متعدد الوسائط لحظي", "تحليل متقدم للملفات والبيانات", "مكتبة ضخمة لتطبيقات GPTs"], "https://chatgpt.com"],
+            ["Claude 3.5 Sonnet", "write", "الكتابة والتدوين", "fa-feather-pointed", "النموذج الأكثر فصاحة وبلاغة وأدبية في صياغة المحتوى البشري الطبيعي.", "يتفوق في كتابة المقالات العميقة المتماسكة دون تكرار مع نافذة Artifacts لعرض التوليد.", ["صياغة بشرية غير آلية", "نافذة سياق ضخمة (200k رمز)", "ميزة Artifacts التفاعلية"], "https://claude.ai"],
+            ["Google Gemini 1.5", "write", "الكتابة والتدوين", "fa-google", "نموذج جوجل العملاق بذاكرة خرافية تستوعب كتباً وساعات فيديو كاملة.", "يمتلك نافذة ذاكرة تفوق مليون رمز، تتيح له تلخيص مكتبة كتب كاملة أو تحليل فيلم كامل.", ["نافذة ذاكرة تتسع لمليون رمز", "تكامل وثيق مع مستندات Google", "تحليل مقاطع الفيديو الطويلة والكتب"], "https://gemini.google.com"],
+            ["Jasper AI", "write", "الكتابة والتدوين", "fa-pen-nib", "منصة كتابة المحتوى التسويقي والإعلاني الشاملة للشركات والمسوقين.", "تتيح تدريب الذكاء على نبرة صوت علامتك التجارية لإنتاج محتوى ثابت للبراند.", ["حفظ نبرة صوت البراند Brand Voice", "كتابة مقالات متوافقة مع السيو", "توليد حملات تسويقية متكاملة"], "https://www.jasper.ai"],
+            ["Notion AI", "write", "الكتابة والتدوين", "fa-book-bookmark", "المساعد المكتبي المدمج لتلخيص الملاحظات، تنظيم الأفكار، واستخراج المهام.", "يبحث في كافة ملاحظاتك وصفحاتك ويلخص اجتماعات العمل ويصيغ المقالات بسلاسة.", ["بحث ذكي عبر مستنداتك وملاحظاتك", "تلخيص الاجتماعات وإعداد خطط العمل", "تحسين الصياغة وتنسيق الجداول"], "https://www.notion.so/product/ai"],
+            ["Grammarly AI", "write", "الكتابة والتدوين", "fa-spell-check", "التدقيق اللغوي وضبط نبرة الكلام وصياغة الإيميلات والمراسلات الرسمية.", "يصلح الأخطاء النحوية والإملائية ويقترح تحسينات تجعل الأسلوب الإنجليزي احترافياً.", ["تصحيح نحوي وإملائي دقيق", "تعديل نبرة الخطاب (رسمي، مقنع)", "مدمج بكافة البرامج والمتصفحات"], "https://www.grammarly.com"],
+            ["QuillBot", "write", "الكتابة والتدوين", "fa-repeat", "إعادة صياغة الجمل والمقالات (Paraphrasing) وتلخيص الأبحاث وفحص الاقتباس.", "أداة مفضلة للطلاب والباحثين لإعادة تشكيل الجمل بأساليب متعددة دون الإخلال بالمعنى.", ["أنماط صياغة متعددة ومخصصة", "تلخيص المقالات والكتب الطويلة", "فحص الانتحال والاقتباس الأدبي"], "https://quillbot.com"],
+            ["Copy.ai", "write", "الكتابة والتدوين", "fa-copy", "أتمتة كتابة المحتوى التسويقي، منشورات السوشيال ميديا، ووصف المنتجات.", "توفر مسارات عمل مؤتمتة لإنتاج مئات المنشورات ورسائل المبيعات لفرق التسويق.", ["أتمتة كتابة المحتوى الضخم", "توليد نصوص إعلانات جذابة", "أكثر من 90 قالباً تسويقياً جاهزاً"], "https://www.copy.ai"],
+            ["Writesonic", "write", "الكتابة والتدوين", "fa-pen-clip", "كتابة المقالات الطويلة المتوافقة مع أحدث معايير محركات البحث SEO.", "تولد مقالات بآلاف الكلمات مدعومة بمعلومات مباشرة من الويب وتنسيق جاهز للنشر.", ["كتابة مقالات طويلة بنقرة واحدة", "تكامل مباشر مع بيانات محرك Google", "أداة Chatsonic للمحادثة الحية"], "https://writesonic.com"],
+            ["Sudowrite", "write", "الكتابة والتدوين", "fa-book-open", "الرفيق المبتكر لكتاب الروايات والقصص الخيالية وتطوير الشخصيات والحبكة.", "يساعد الروائيين في تخطي عثرة الكاتب وتوسيع المشاهد وابتكار حبكات غير متوقعة.", ["مخصص للروايات والقصص الخيالية", "توليد حوارات وتطوير الشخصيات", "تخطي عثرة الكاتب وتوسيع المشاهد"], "https://www.sudowrite.com"],
+            ["Rytr", "write", "الكتابة والتدوين", "fa-feather", "أداة كتابة سريعة واقتصادية للمقالات، رسائل البريد، والمنشورات القصيرة.", "تتميز بواجهة بسيطة وخفيفة وأسعار مناسبة مع دعم صياغة ممتازة لأكثر من 30 لغة.", ["واجهة سهلة وخفيفة وسريعة", "خيار اقتصادي ممتاز للمبتدئين", "دعم كتابة بأكثر من 30 لغة"], "https://rytr.me"],
+            ["Wordtune", "write", "الكتابة والتدوين", "fa-highlighter", "إعادة كتابة الجمل بأسلوب أكثر بلاغة وقوة واختصار العبارات المعقدة.", "يقترح عدة طرق لقول نفس الفكرة باحترافية، ويساعدك في التعبير عما تقصده بوضوح.", ["اقتراحات متعددة لإعادة كتابة الجمل", "اختصار أو توسيع الفقرات بذكاء", "تحسين الانسيابية اللغوية للنصوص"], "https://www.wordtune.com"],
+            ["Anyword", "write", "الكتابة والتدوين", "fa-bullseye", "كتابة نصوص إعلانية مبنية على الأداء مع درجة توقع التفاعل التحويلي.", "يقيم النص قبل نشره بنتيجة تنبؤية تخبرك بمدى قدرته على تحقيق مبيعات للجمهور المستهدف.", ["توقع معدل النقر والتحويل (Predictive Score)", "تخصيص المحتوى حسب الفئات العمرية", "توليد نصوص إعلانات فيسبوك وجوجل"], "https://anyword.com"],
+            ["Hemingway Editor AI", "write", "الكتابة والتدوين", "fa-marker", "تبسيط النصوص وتوضيحها وحذف الحشو وجعل المقال سهل القراءة للجميع.", "يبرز الجمل المعقدة وصعبة القراءة ويصلح صيغ المجهول لجعل النص رشيقاً وواضحاً.", ["تبسيط الجمل المعقدة والطويلة", "تقييم مستوى سهولة القراءة (Readability)", "حذف الكلمات الزائدة والركيكة"], "https://hemingwayapp.com"],
+            ["Scalenut", "write", "الكتابة والتدوين", "fa-network-wired", "منصة متكاملة تجمع بين خطة الكلمات المفتاحية وكتابة مقالات السيو كاملة.", "ترشدك خطوة بخطوة من البحث عن الكلمات التنافسية وحتى نشر مقال يتصدر محركات البحث.", ["تخطيط الكلمات المفتاحية تلقائياً", "مساعد كتابة سيو لحظي متكامل", "بناء هيكل المحتوى التنافسي"], "https://www.scalenut.com"],
+            ["Frase.io", "write", "الكتابة والتدوين", "fa-magnifying-glass-arrow-right", "تحليل مقالات المنافسين في جوجل وإنشاء خطط محتوى متصدرة في دقائق.", "يستخرج الأسئلة الشائعة من Reddit ومحركات البحث ويصيغ مسودة مقال متكاملة تغطي الموضوع.", ["تحليل محتوى المنافسين بالصفحة الأولى", "الإجابة على أسئلة الجمهور الشائعة", "توليد ملخصات تفصيلية للمقالات"], "https://www.frase.io"],
+            ["LongShot AI", "write", "الكتابة والتدوين", "fa-check-double", "كتابة مقالات طويلة مع التحقق التلقائي من صحة الحقائق لتجنب الأخطاء.", "تتميز بميزة Fact-Checking لفحص الأرقام والمعلومات والتأكد من موثوقيتها قبل النشر.", ["فحص وتدقيق الحقائق التلقائي", "كتابة مقالات طويلة ومتخصصة", "توليد أفكار مبنية على الأخبار الحالية"], "https://www.longshot.ai"],
+            ["Typeface", "write", "الكتابة والتدوين", "fa-building", "منصة كتابة المحتوى الموجهة للمؤسسات الكبرى للتوافق التام مع البراند.", "تساعد العلامات التجارية العملاقة على إنتاج آلاف الأصول التسويقية والنصوص بأمان تام.", ["مخصصة للشركات والفرق الكبيرة", "التزام صارم بهوية ونبرة البراند", "تكامل مع منصات التسويق الكبرى"], "https://www.typeface.ai"],
+            ["Jenni AI", "write", "الكتابة والتدوين", "fa-graduation-cap", "مساعد كتابة الأبحاث الأكاديمية والأطروحات مع إدراج الاستشهادات تلقائياً.", "يكتب الأوراق البحثية باحترافية، ويدرج المراجع بصيغ APA و MLA بمجرد طلبه.", ["مساعد متخصص في الأوراق البحثية", "إدراج المراجع بصيغ APA وMLA تلقائياً", "إكمال ذكي للفقرات العلمية الصعبة"], "https://jenni.ai"],
+            ["Lex.page", "write", "الكتابة والتدوين", "fa-file-lines", "معالج نصوص ذكي وحديث للكتاب والمفكرين يتوقع ما تريد كتابته بسلاسة.", "محرر شبيه بـ Google Docs ولكن مدمج بذكاء اصطناعي يساعدك على إيجاد العبارة المناسبة فوراً.", ["محرر نصوص عصري وفائق النظافة", "اقتراح أفكار وفقرات مكملة بذكاء", "واجهة تركيز خالية من المشتتات"], "https://lex.page"],
+            ["Cohesive AI", "write", "الكتابة والتدوين", "fa-cubes-stacked", "محرر محتوى تفاعلي يوفر أكثر من 200 قالب جاهز لكل أنواع الكتابة الرقمية.", "من كتابة سكريبت يوتيوب إلى منشورات لينكدإن؛ يمنحك محتوى مجهزاً للتعديل بسرعة.", ["أكثر من 200 قالب محتوى جاهز", "تعديل سياقي للأجزاء المحددة", "توليد صور مرافقة للنصوص"], "https://cohesive.so"],
+            ["Simplified AI", "write", "الكتابة والتدوين", "fa-share-nodes", "تطبيق شامل يجمع كتابة النصوص وتصميم الصور ومونتاج الفيديو في لوحة واحدة.", "أداة متكاملة للفرق الصغيرة تدير كل أصول السوشيال ميديا من مكان واحد دون تنقل.", ["منظومة شاملة للنصوص والتصاميم", "جدولة النشر التلقائي للمحتوى", "أدوات ترجمة وإعادة صياغة متعددة"], "https://simplified.com"],
+            ["Hypotenuse AI", "write", "الكتابة والتدوين", "fa-tag", "كتابة أوصاف المنتجات والمقالات لمتاجر التجارة الإلكترونية بالجملة.", "يرتبط بمتجر Shopify أو Amazon ليولد مئات الأوصاف الإبداعية والمقنعة للمنتجات بضغطة زر.", ["كتابة أوصاف آلاف المنتجات دفعة واحدة", "تكامل مع Shopify وAmazon", "كتابة مدونات تسويقية للمتاجر"], "https://www.hypotenuse.ai"],
+            ["Neuroflash", "write", "الكتابة والتدوين", "fa-bolt-lightning", "المولد الأول في أوروبا للنصوص التسويقية المرتكزة على المشاعر والتحفيز.", "يحلل الشحنة العاطفية للكلمات لضمان وصول الرسالة الإعلانية لقلب الجمهور المستهدف.", ["تحليل نبرة المشاعر في النصوص", "توليد نصوص إعلانية محفزة جداً", "دعم متقن لعدة لغات عالمية"], "https://neuroflash.com"],
+            ["Reword", "write", "الكتابة والتدوين", "fa-people-group", "تدريب الذكاء على التفكير مثل فريق التحرير الخاص بك لكتابة مقالات فريدة.", "يتعلم من مقالات موقعك السابقة لكي يقدم نصائح ومسودات مطابقة تماماً لأسلوب موقعك.", ["يتعلم من مقالاتك السابقة", "تجنب المحتوى المكرر والآلي", "مساعد تحريري يدمج الأسلوب البشري"], "https://reword.co"],
+
+            // ================= 5. التسويق والأعمال (25 أداة) =================
+            ["AdCreative.ai", "market", "التسويق والأعمال", "fa-rectangle-ad", "توليد تصاميم الإعلانات والبانرات المحفزة للنقر بناءً على تحليلات البيانات.", "يولد مئات الإعلانات بأبعاد مختلفة في ثوانٍ مع تقييم توقع معدل النقر (CTR Score).", ["تصاميم إعلانية بجميع الأبعاد", "توقع نسبة نجاح الإعلان بالذكاء", "توليد نصوص إعلانية مقنعة"], "https://www.adcreative.ai"],
+            ["Surfer SEO", "market", "التسويق والأعمال", "fa-chart-line", "تصدر نتائج بحث Google عبر تحليل المقالات والكلمات المفتاحية للمنافسين.", "يوجه كاتب المحتوى خطوة بخطوة للكلمات والفقرات المطلوبة لتتصدر الصفحة الأولى بمحركات البحث.", ["محرر محتوى مخصص للسيو مباشرة", "تحليل شامل لصفحات المنافسين", "تدقيق المقالات القديمة لتحسين ترتيبها"], "https://surferseo.com"],
+            ["HubSpot Breeze AI", "market", "التسويق والأعمال", "fa-users-gear", "أتمتة خدمة العملاء والمبيعات والتسويق لفرق العمل والشركات في منصة واحدة.", "يقوم بتصنيف العملاء المتوقعين، وصياغة ردود البريد المخصصة، وتوقع صفقات الشراء.", ["تكامل وثيق مع نظام الـ CRM", "أتمتة التواصل مع العملاء المحتملين", "تحليلات تنبؤية للمبيعات"], "https://www.hubspot.com/products/artificial-intelligence"],
+            ["Predis.ai", "market", "التسويق والأعمال", "fa-hashtag", "توليد منشورات كاملة لمنصات السوشيال ميديا (تصميم، نص، هاشتاغات) بضغطة زر.", "اكتب فكرة منشورك، وسيقوم بتوليد فيديو Reels أو تصميم ثابت مع الكابشن المناسب وجدولتها.", ["توليد منشورات كاملة مع الهاشتاغات", "تحليل منشورات وحملات المنافسين", "جدولة النشر التلقائي عبر المنصات"], "https://predis.ai"],
+            ["ManyChat AI", "market", "التسويق والأعمال", "fa-comments-dollar", "أتمتة الردود على رسائل وتعليقات إنستغرام وفيسبوك لتحويل المتابعين لمشترين.", "يرسل روابط الشراء والخصومات فور كتابة المتابع كلمة معينة في التعليقات أو الخاص.", ["الرد الآلي على التعليقات والرسائل", "إرسال روابط المنتجات فوراً", "جمع بيانات العملاء وإيميلاتهم"], "https://manychat.com"],
+            ["Semrush AI Toolkit", "market", "التسويق والأعمال", "fa-chart-pie", "حزمة أدوات ذكية لكشف ثغرات المنافسين في إعلانات جوجل والكلمات المفتاحية.", "تساعدك على معرفة الكلمات التي تجلب أرباحاً للمنافسين وكتابة حملات إعلانية تتفوق عليهم.", ["كشف الكلمات المفتاحية للمنافسين", "مراقبة ترتيب الموقع يومياً", "توليد أفكار حملات إعلانات جوجل"], "https://www.semrush.com"],
+            ["Brand24", "market", "التسويق والأعمال", "fa-ear-listen", "مراقبة سمعة علامتك التجارية عبر السوشيال ميديا والمواقع وتحليل المشاعر.", "ينبهك فور ذكر اسم شركتك في أي مكان على الإنترنت، ويحلل هل التعليقات إيجابية أم سلبية.", ["رصد فوري لذكر اسم البراند", "تحليل المشاعر (إيجابي/سلبي)", "قياس مدى انتشار الحملات التسويقية"], "https://brand24.com"],
+            ["Albert.ai", "market", "التسويق والأعمال", "fa-robot", "وكيل ذكاء اصطناعي يدير ميزانيات الحملات الإعلانية ويحسنها ذاتياً.", "يوزع ميزانيتك الإعلانية بين فيسبوك، جوجل، وتيك توك تلقائياً للوصول لأعلى عائد ممكن.", ["إدارة الميزانيات الإعلانية ذاتياً", "تحسين الاستهداف على مدار الساعة", "تخفيض تكلفة الاستحواذ على العميل"], "https://albert.ai"],
+            ["MarketMuse", "market", "التسويق والأعمال", "fa-sitemap", "تخطيط استراتيجية المحتوى وبناء سلطة موقعك الموضوعية (Topical Authority).", "يحلل موقعك بالكامل ويكتشف الثغرات التي تنقصك لتصبح المرجع الأول في مجالك لدى جوجل.", ["بناء السلطة الموضوعية للموقع", "كشف فجوات المحتوى التنافسية", "توجيه خطط النشر بدقة"], "https://www.marketmuse.com"],
+            ["Clearscope", "market", "التسويق والأعمال", "fa-crosshairs", "الأداة المفضلة لدى كبرى المواقع العالمية لضمان مطابقة المحتوى لنية الباحث.", "تركز على نية البحث وتضمن أن مقالك يجيب على أدق تفاصيل ما يبحث عنه المستخدم بالضبط.", ["تحليل نية البحث للمستخدم (Search Intent)", "تكامل مع Google Docs وWordPress", "تحديث مستمر لمعايير الخوارزميات"], "https://www.clearscope.io"],
+            ["Ocoya", "market", "التسويق والأعمال", "fa-bullhorn", "إنشاء وتصميم وجدولة منشورات السوشيال ميديا في ثوانٍ مع توليد الكابشن.", "تجمع بين قوة كانفا وأدوات الكتابة لإنتاج وتنسيق المحتوى بجدول زمني منظم وسريع.", ["توليد تصاميم وكابشن متناسق", "جدولة النشر لجميع المنصات", "مكتبة وسائط تجارية هائلة"], "https://www.ocoya.com"],
+            ["Pencil AI", "market", "التسويق والأعمال", "fa-pencil-ruler", "توليد إعلانات فيديو وصور مخصصة لمنصات Meta وTikTok مدفوعة بالبيانات.", "تعتمد على مليارات الدولارات من بيانات الإعلانات السابقة لإنشاء إعلانات تحقق مبيعات فورية.", ["توليد إعلانات فيديو عالية التحويل", "توقع تكلفة الإعلان قبل إطلاقه", "تعديل سريع ومستمر للإعلانات"], "https://www.trypencil.com"],
+            ["Mutiny", "market", "التسويق والأعمال", "fa-shuffle", "تخصيص صفحات الهبوط (Landing Pages) لكل زائر حسب مجاله لرفع الاشتراكات.", "تغير النصوص والعناوين بصفحة موقعك تلقائياً بحسب الشركة أو البلد القادم منه الزائر.", ["تخصيص ديناميكي لصفحات الهبوط", "مضاعفة معدلات تحويل B2B", "تجارب A/B Test تلقائية"], "https://www.mutinyhq.com"],
+            ["Browse AI", "market", "التسويق والأعمال", "fa-spider", "استخراج ومراقبة البيانات من أي موقع إنترنت وتحويلها لجداول دون كتابة كود.", "درب روبوتاً في دقيقتين لمراقبة أسعار المنافسين أو استخراج المنتجات وإرسالها لجوجل شيت.", ["استخراج بيانات المواقع بدون كود", "مراقبة تغير أسعار المنافسين", "تحديث تلقائي لجداول البيانات"], "https://www.browse.ai"],
+            ["Clay.com", "market", "التسويق والأعمال", "fa-id-card-clip", "إثراء بيانات العملاء المحتملين وأتمتة رسائل المبيعات فائقة التخصيص.", "تجمع معلومات دقيقة عن أي عميل وشركته من 50+ مصدراً وتصيغ له إيميل مبيعات يستحيل تجاهله.", ["دمج أكثر من 50 مصدر بيانات", "إثراء بيانات الـ Leads بدقة خارقة", "كتابة رسائل مبيعات شخصية للغاية"], "https://www.clay.com"],
+            ["Seventh Sense", "market", "التسويق والأعمال", "fa-envelope-open-text", "تحديد التوقيت المثالي لكل عميل بمفرده لفتح رسائل البريد الإلكتروني.", "تزيد من معدل فتح الإيميلات عبر إرسال الرسالة في الوقت الدقيق الذي يفتح فيه ذلك الشخص بريده.", ["إرسال مخصص حسب وقت فراغ العميل", "رفع معدل فتح الرسائل والنقر", "تكامل مع HubSpot وMarketo"], "https://www.theseventhsense.com"],
+            ["Smartly.io", "market", "التسويق والأعمال", "fa-rectangle-list", "أتمتة الحملات الإعلانية الضخمة للشركات على السوشيال ميديا وتوحيدها.", "تساعد كبرى المتاجر على توليد آلاف الإعلانات الديناميكية وتعديل الأسعار والعروض لحظياً.", ["أتمتة الإعلانات الضخمة والموسمية", "تعديل الأسعار بالعروض لحظياً", "تحليلات متعددة المنصات موحدة"], "https://www.smartly.io"],
+            ["Sprout Social AI", "market", "التسويق والأعمال", "fa-comments", "إدارة حسابات التواصل، الاستماع للجمهور، والرد الآلي على استفسارات العملاء.", "تتيح لفرق التسويق إدارة كافة منصات السوشيال، وتحليل أداء المنشورات، وتقديم خدمة عملاء فائقة.", ["إدارة مركزية لجميع المنصات", "تحليل تفاعل الجمهور والمنافسين", "اقتراح ردود ذكية لخدمة العملاء"], "https://sproutsocial.com"],
+            ["Hootsuite OwlyWriter", "market", "التسويق والأعمال", "fa-crow", "توليد أفكار المحتوى وإعادة صياغة المنشورات الناجحة لكافة قنوات السوشيال.", "تساعد مديري المنصات على توليد خطط نشر أسبوعية واستخراج أفكار من الروابط بضغطة زر.", ["توليد أفكار محتوى أسبوعية", "إعادة تدوير المنشورات ذات الأداء العالي", "جدولة ذكية في أوقات الذروة"], "https://www.hootsuite.com"],
+            ["Phrasee", "market", "التسويق والأعمال", "fa-message", "تحسين وصياغة العناوين الترويجية ورسائل الإشعارات (Push Notifications).", "تستخدم تقنيات لغوية متقدمة لتوليد عناوين إيميل تجذب القارئ وتتجنب مجلد الرسائل غير المرغوبة (Spam).", ["صياغة عناوين إيميل غير قابلة للتجاهل", "زيادة التفاعل مع الإشعارات اللحظية", "تجارب تحسين الأداء اللغوي"], "https://phrasee.co"],
+            ["Persado", "market", "التسويق والأعمال", "fa-brain", "منصة الذكاء الاصطناعي التوليدي لكتابة الرسائل التسويقية بناءً على علم الأعصاب.", "تحدد الكلمات والعبارات التي تثير استجابة الشراء النفسية بدقة متناهية للبنوك والمتاجر الكبرى.", ["تطبيق علم النفس اللغوي بالمبيعات", "تخصيص الكلمات حسب شريحة الزبائن", "رفع عائد الاستثمار الإعلاني"], "https://www.persado.com"],
+            ["Buffer AI Assistant", "market", "التسويق والأعمال", "fa-calendar-days", "مساعد مدمج لإعادة تدوير الأفكار وتعديل نبرة المنشورات وجدولتها للمنصات.", "يقترح أفكاراً جديدة، ويكيف المنشور الطويل ليناسب أسلوب تويتر ولينكدإن وإنستغرام.", ["تكييف المحتوى لكل منصة بنقرة واحدة", "توليد أفكار منشورات سريعة", "جدولة سهلة وخفيفة الاستخدام"], "https://buffer.com/ai-assistant"],
+            ["Mention AI", "market", "التسويق والأعمال", "fa-bullhorn", "رصد آراء المستهلكين وحملات المنافسين وقياس تأثير المؤثرين في السوق.", "تمنحك رؤى واضحة حول ما يقال عن قطاعك في الأخبار والمنتديات لاتخاذ قرارات تسويق ذكية.", ["رصد شامل للإعلام والسوشيال", "تحليل أداء المؤثرين في حملاتك", "تقارير تنافسية جاهزة للعرض"], "https://mention.com"],
+            ["Cortex", "market", "التسويق والأعمال", "fa-chart-simple", "تحليل العناصر البصرية والألوان الأكثر جذباً للجمهور في تصاميم المنافسين.", "يخبرك بالألوان، الصور، وتوقيت النشر الذي يحقق أعلى مشاركات في مجالك بدقة إحصائية.", ["تحليل الألوان والصور الأكثر تفاعلاً", "تحديد أوقات النشر المثالية إحصائياً", "كشف أسرار محتوى المنافسين البصري"], "https://meetcortex.com"],
+            ["Jasper Campaigns", "market", "التسويق والأعمال", "fa-bullseye", "إطلاق حملة تسويقية كاملة (إعلانات، مقالات، إيميلات) من ملخص تسويقي واحد.", "ترفع ملخص منتجك الجديد لينتج لك كافة المواد التسويقية المطلوبة دفعة واحدة بنبرة موحدة.", ["إنتاج كافة مواد الحملة دفعة واحدة", "توحيد نبرة البراند عبر كافة الوسائط", "تسريع إطلاق المنتجات الجديدة للأسواق"], "https://www.jasper.ai/campaigns"],
+
+            // ================= 6. التعليم والبحث العلمي (25 أداة) =================
+            ["Perplexity AI", "edu", "التعليم والبحث", "fa-graduation-cap", "محرك إجابات بحثي يغنيك عن جوجل مع تقديم مراجع ومصادر موثقة لكل معلومة.", "الرفيق المثالي للطلاب والأكاديميين؛ يجمع بين حداثة محركات البحث ودقة التلخيص اللغوي.", ["روابط ومراجع نشطة ومباشرة", "البحث المخصص في الأوراق العلمية", "قراءة وتلخيص ملفات PDF الضخمة"], "https://www.perplexity.ai"],
+            ["Consensus", "edu", "التعليم والبحث", "fa-microscope", "محرك بحث مخصص لاستخراج الإجابات من أكثر من 200 مليون ورقة بحثية محكمة.", "اطرح أي سؤال علمي أو طبي وسيجيبك بناءً على إجماع الدراسات العلمية مع ذكر اسم الباحث.", ["إجابات مدعومة بأوراق علمية محكمة", "مؤشر الإجماع العلمي (Consensus Meter)", "توفير مئات الساعات في كتابة الأطروحات"], "https://consensus.app"],
+            ["Elicit", "edu", "التعليم والبحث", "fa-book-open-reader", "مساعد الباحثين لقراءة واستخراج البيانات من الدراسات الأكاديمية وعمل المقارنات.", "يقوم بمسح آلاف الدراسات المتعلقة بموضوعك واستخراج منهجيات البحث والنتائج بجدول مقارنة.", ["توليد مراجعات الأدبيات (Literature Review)", "استخراج البيانات المنهجية من الملفات", "العثور على الأوراق المرجعية الشبيهة"], "https://elicit.com"],
+            ["ChatPDF", "edu", "التعليم والبحث", "fa-file-pdf", "تحدث مع أي ملف أو كتاب PDF واسأله عن أدق التفاصيل ليرشدك لصفحتها.", "ارفع الكتب المدرسية، العقود، أو الدراسات، وسيجيب على استفساراتك مع ذكر رقم الصفحة.", ["دعم كافة اللغات ومنها العربية", "الإشارة لرقم الصفحة الدقيقة للمصدر", "تحليل الكتب والمقررات الضخمة"], "https://www.chatpdf.com"],
+            ["Scite.ai", "edu", "التعليم والبحث", "fa-quote-left", "التحقق من صحة الاستشهادات العلمية ومعرفة هل الدراسات تؤيدها أم تدحضها.", "يقدم خاصية Smart Citations لتعرف السياق الحقيقي الذي استشهد فيه الباحثون بورقة معينة.", ["كشف الدراسات المؤيدة والمعارضة", "التحقق من موثوقية المراجع والأبحاث", "قاعدة بيانات استشهادات ذكية"], "https://scite.ai"],
+            ["Wolfram Alpha", "edu", "التعليم والبحث", "fa-calculator", "المحرك الحسابي الخارق لحل أعقد المسائل الرياضية والفيزيائية خطوة بخطوة.", "يعتمد على بيانات علمية دقيقة خالية من الهلوسة؛ يحل التفاضل والتكامل ويشرح الحل للطلاب.", ["حل المسائل الرياضية المعقدة", "شرح خطوات الحل خطوة بخطوة", "رسم المعادلات والبيانات العلمية"], "https://www.wolframalpha.com"],
+            ["Humata AI", "edu", "التعليم والبحث", "fa-file-lines", "قراءة وتحليل وتلخيص مئات ملفات الـ PDF التقنية والقانونية معاً بسرعة خيالية.", "يشبه ChatGPT ولكن لملفاتك الخاصة؛ يمنحك إجابات موثقة وسريعة جداً للمستندات المعقدة.", ["تحليل ملفات متعددة في وقت واحد", "تسريع إعداد مراجعات الأبحاث", "أمان وحماية تامة للوثائق المرفوعة"], "https://www.humata.ai"],
+            ["Khanmigo", "edu", "التعليم والبحث", "fa-chalkboard-user", "المعلم الشخصي الذكي للطلاب والمساعد التوجيهي للمعلمين من أكاديمية خان.", "لا يعطي الطالب الحل الجاهز بل يوجهه بالأسئلة التفاعلية ليفهم طريقة الحل بنفسه.", ["تعليم تفاعلي ينمي مهارة التفكير", "مساعد مخصص للرياضيات والعلوم", "أداة للمعلمين لتجهيز خطط الدروس"], "https://www.khanacademy.org/khanmigo"],
+            ["SciSpace (Typeset)", "edu", "التعليم والبحث", "fa-atom", "تبسيط وتفكيك المعادلات والأوراق العلمية المعقدة بضغطة زر وشرحها ببساطة.", "حدد أي فقرة أو رسم بياني غامض داخل الورقة العلمية ليقوم بشرحه بلغة مبسطة ومفهومة.", ["شرح فوري لأي فقرة أو معادلة معقدة", "اقتراح أوراق بحثية شبيهة", "دعم ترجمة النصوص العلمية للعربية"], "https://typeset.io"],
+            ["Connected Papers", "edu", "التعليم والبحث", "fa-diagram-project", "رسم بياني بصري تفاعلي يوضح الروابط والعلاقات بين الأوراق البحثية والمجالات.", "أدخل ورقة علمية مفضلة ليرسم لك شبكة بصرية بكل الدراسات السابقة واللاحقة المرتبطة بها.", ["استكشاف بصري للأدبيات العلمية", "معرفة الأوراق التأسيسية لكل علم", "توفير وقت البحث في مراجع الرسائل"], "https://www.connectedpapers.com"],
+            ["Research Rabbit", "edu", "التعليم والبحث", "fa-network-wired", "المصنف الذكي (Spotify الأبحاث) لإنشاء تنبيهات واستكشاف الدراسات الجديدة.", "تنشئ قوائم بمواضيع اهتمامك، ويقوم بإرسال توصيات دورية بأحدث الأوراق المنشورة حولها.", ["إنشاء قوائم مراجع تفاعلية", "تنبيهات بأحدث الأبحاث المنشورة", "تتبع مسار الباحثين المفضلين"], "https://www.researchrabbit.ai"],
+            ["Litmaps", "edu", "التعليم والبحث", "fa-map-location-dot", "رسم خريطة زمنية لتطور البحث العلمي في موضوعك ومعرفة الثغرات المتاحة للبحث.", "توضح لك متى بدأت فكرة علمية وكيف تطورت عبر السنين في رسم بياني زمني مذهل.", ["خرائط زمنية لتطور الأفكار العلمية", "اكتشاف الثغرات البحثية الجديدة", "مشاركة الخرائط مع المشرف الأكاديمي"], "https://www.litmaps.com"],
+            ["Scholarcy", "edu", "التعليم والبحث", "fa-id-card", "تحويل الكتب والأوراق البحثية الطويلة إلى بطاقات فلاش كاردز تلخيصية سريعة.", "يقسم الورقة إلى بطاقات تلخص الأهداف، المنهجية، والنتائج، لتحدد هل يستحق المقال قراءته.", ["تحويل الأبحاث لبطاقات تلخيص", "استخراج الجداول والنقاط الجوهرية", "تسريع القراءة الأكاديمية بـ 10 أضعاف"], "https://www.scholarcy.com"],
+            ["Quizlet Q-Chat", "edu", "التعليم والبحث", "fa-spell-check", "المدرب التفاعلي الذكي للاختبارات وتحفيظ الكلمات والمفاهيم بطريقة التكرار المتباعد.", "يختبرك كمعلم خصوصي، ويطرح عليك أسئلة لاختبار حفظك، ويصحح لك أخطاءك فوراً.", ["اختبارات تفاعلية ذكية وشخصية", "تطبيق أسلوب التكرار المتباعد", "مثالي لتعلم اللغات وحفظ المصطلحات"], "https://quizlet.com"],
+            ["Socratic by Google", "edu", "التعليم والبحث", "fa-camera", "حل المسائل والواجبات المدرسية عبر تصوير السؤال بكاميرا الهاتف للمراحل الدراسية.", "يصور الطالب السؤال ليقدم له شروحات مرئية ورسومات وفيديوهات تشرح المفهوم العلمي.", ["البحث وحل الواجبات عبر الكاميرا", "شروحات مبسطة بالرسوم البيانية", "تغطية ممتازة للرياضيات والعلوم"], "https://socratic.org"],
+            ["DeepL Translator", "edu", "التعليم والبحث", "fa-language", "المترجم الأكثر دقة واحترافية في العالم للنصوص والوثائق مع الحفاظ على التنسيق.", "يتفوق على ترجمة جوجل في فهم السياق البشري والنبرة اللغوية وترجمة ملفات Word وPDF كاملة.", ["ترجمة فائقة الدقة تحاكي البشر", "ترجمة ملفات المستندات مع حفظ التنسيق", "قاموس لغوي متقدم لاختيار المرادفات"], "https://www.deepl.com"],
+            ["Sharly AI", "edu", "التعليم والبحث", "fa-file-lines", "التحدث مع أي نوع من الوثائق (Word, PDF, PowerPoint) واستخراج التقارير بدقة.", "أداة ممتازة للطلاب والمحللين لفهم العقود والمستندات التقنية المطولة بسرعة متناهية.", ["دعم ملفات Word وPowerPoint وPDF", "استخراج الحقائق بدون هلوسة", "مشاركة المحادثات مع زملاء الدراسة"], "https://www.sharly.ai"],
+            ["Paperpal", "edu", "التعليم والبحث", "fa-pencil-check", "التدقيق اللغوي الأكاديمي المتخصص في تجهيز الأوراق للنشر بالمجلات العلمية الدولية.", "مدرب على ملايين الأوراق المحكمة ليقترح تصحيحات لغوية ترفع فرص قبول بحثك في Nature وElsevier.", ["تدقيق لغوي أكاديمي متخصص", "فحص الجاهزية للنشر بالمجلات العالمية", "إعادة صياغة العبارات الركيكة علمياً"], "https://paperpal.com"],
+            ["Trinka AI", "edu", "التعليم والبحث", "fa-spell-check", "تصحيح القواعد والمصطلحات الطبية والعلمية والهندسية للباحثين والعلماء.", "يتعرف على المصطلحات التقنية المعقدة ويصحح سياقها الأكاديمي بما يتوافق مع أدلة النشر.", ["تصحيح المصطلحات الطبية والعلمية", "التوافق مع أدلة النشر الأكاديمية", "فحص الانتحال الأدبي والعلمي"], "https://www.trinka.ai"],
+            ["Mendeley AI", "edu", "التعليم والبحث", "fa-folder-tree", "إدارة المراجع الأكاديمية الذكية وتنسيق الاستشهادات التلقائي داخل ملفات Word.", "تطبيق عالمي مشهور من Elsevier لتنظيم أبحاثك وإدراج المراجع بنقرة زر أثناء كتابة الأطروحة.", ["إدارة المراجع والملفات البحثية", "إدراج المراجع التلقائي داخل Word", "مزامنة سحابية لكافة مكتبتك"], "https://www.mendeley.com"],
+            ["Genei", "edu", "التعليم والبحث", "fa-highlighter", "محرك تلخيص المقالات واستخراج الكلمات المفتاحية لمشاريع التخرج والأبحاث.", "يقرأ المستندات الطويلة ويقدم تلخيصاً لكل قسم لتسريع قراءة مئات الأوراق الأسبوعية.", ["استخراج النقاط الرئيسية والبيانات", "تلخيص تلقائي سريع للمقالات", "تنظيم المستندات في مساحات عمل"], "https://www.genei.io"],
+            ["Explainpaper", "edu", "التعليم والبحث", "fa-chalkboard", "أداة سريعة لتفسير الجمل والأبحاث المعقدة كأنك تشرحها لطفل صغير.", "حدد أي مصطلح علمي غامض في ملف الـ PDF ليظهر لك تفسير مبسط ومباشر وسهل الفهم.", ["تبسيط الجمل المعقدة جداً", "شرح المصطلحات العلمية الغامضة", "أداة ممتازة للطلاب المبتدئين"], "https://www.explainpaper.com"],
+            ["Wisdolia", "edu", "التعليم والبحث", "fa-clone", "توليد كروت المذاكرة (Flashcards) التفاعلية تلقائياً من أي صفحة ويب أو فيديو يوتيوب.", "تحول أي فيديو شرح أو مقال إلى أسئلة واختبارات لترسيخ المعلومات في ذاكرتك سريعاً.", ["توليد فلاش كاردز من فيديوهات يوتيوب", "إنشاء أسئلة تدريبية تلقائية", "تصدير فوري لتطبيق Anki الشهير"], "https://www.wisdolia.com"],
+            ["Knowji", "edu", "التعليم والبحث", "fa-graduation-cap", "تطبيق تعلم المفردات الإنجليزية عبر الرسوم الكرتونية وعلم التكرار التباعدي.", "أفضل تطبيق للتحضير لاختبارات IELTS وTOEFL عبر ربط الكلمات بصور ذهنية فكاهية تمنع النسيان.", ["حفظ الكلمات بالربط البصري والقصص", "خوارزميات التكرار التباعدي المتقنة", "مثالي لاختبارات التوفل والآيلتس"], "https://knowji.com"],
+            ["Duolingo Max", "edu", "التعليم والبحث", "fa-language", "تعلم اللغات بمحادثات صوتية تفاعلية مع شخصيات الذكاء الاصطناعي وشرح الأخطاء.", "يقدم خاصية شرح الإجابة لمعرفة سبب الخطأ النحوي، وممارسة المحادثة اليومية الحية.", ["ممارسة محادثة تفاعلية للغات", "شرح تفصيلي لأسباب الأخطاء النحوية", "أسلوب تعليم مسلٍ ومحفز يومياً"], "https://www.duolingo.com"],
+
+            // ================= 7. الصوتيات وتوليد الموسيقى (25 أداة) =================
+            ["ElevenLabs", "audio", "الصوت والموسيقى", "fa-microphone-lines", "الرائد المطلق في تحويل النصوص لصوت بشري واقعي بمختلف المشاعر واللهجات.", "أصوات بشرية لا يمكن تمييزها عن الواقع مع دعم فائق للهجات العربية واستنساخ النبرات.", ["أصوات طبيعية فائقة الواقعية", "استنساخ الأصوات بدقة مذهلة", "دبلجة الفيديو مع مطابقة حركة الشفاه"], "https://elevenlabs.io"],
+            ["Suno AI", "audio", "الصوت والموسيقى", "fa-music", "تأليف وتلحين وغناء أغانٍ كاملة باحترافية استوديو بمجرد وصف الفكرة نصياً.", "تكتب الكلمات أو تطلب منه تأليفها، وتحدد النوع الموسيقي لينتج أغنية متكاملة الغناء والتوزيع.", ["إنتاج أغانٍ كاملة بالكلمات والألحان", "دعم مدهش للغناء بالعربية واللهجات", "جودة تسجيل استوديو خالية من العيوب"], "https://suno.com"],
+            ["Udio", "audio", "الصوت والموسيقى", "fa-compact-disc", "صناعة المقطوعات الموسيقية المعقدة بدقة استوديو وتحكم دقيق في البنية اللحنية.", "منافس قوي أسسه باحثون من DeepMind؛ يتفوق في نقاء أصوات الآلات والمقاطع الطويلة.", ["نقاء استثنائي لتفاصيل الآلات", "تمديد الأغاني وتطوير المقاطع", "تنوع في كافة الأنماط الموسيقية"], "https://www.udio.com"],
+            ["Adobe Podcast AI", "audio", "الصوت والموسيقى", "fa-podcast", "تنقية التسجيلات الصوتية الرديئة وجعلها تبدو وكأنها سُجلت بميكروفون استوديو.", "خاصية Enhance Speech تزيل أصوات الرياح والمكيفات وصدى الغرفة بنقرة واحدة ومجاناً.", ["إزالة تامة للضوضاء وصدى الغرفة", "معايرة مسافة الميكروفون بالذكاء", "أداة سريعة ومجانية لصناع البودكاست"], "https://podcast.adobe.com"],
+            ["Moises.ai", "audio", "الصوت والموسيقى", "fa-guitar", "فصل الصوت البشري عن الموسيقى وعزل الآلات (درامز، غيتار، بيانو) لأي ملف.", "التطبيق الأساسي للموسيقيين؛ يتيح استخراج الكاريوكي، وكشف المقامات وسرعة الإيقاع.", ["فصل دقيق لطبقات الآلات والصوت", "كشف المقامات والسرعة (BPM)", "أداة مثالية للموزعين والمطربين"], "https://moises.ai"],
+            ["Murf.ai", "audio", "الصوت والموسيقى", "fa-headset", "استوديو تعليق صوتي احترافي لإنتاج إعلانات الراديو ومقاطع الفيديو التعليمية.", "يضم مئات الأصوات بمختلف النبرات (حماسي، رسمي، هادئ) مع سهولة مزامنة الصوت مع الفيديو.", ["أصوات احترافية للإعلانات والشروحات", "مزامنة الصوت مع توقيت الفيديو", "تعديل حدة وسرعة ونبرة الصوت"], "https://murf.ai"],
+            ["Speechify", "audio", "الصوت والموسيقى", "fa-book-open", "تحويل الكتب والمقالات وملفات PDF إلى كتب صوتية ممتعة بصوت المشاهير.", "يساعدك على الاستماع للمقالات أثناء القيادة أو ممارسة الرياضة لتوفير ساعات القراءة.", ["قراءة سريعة للمستندات والكتب", "أصوات مشاهير مثل Snoop Dogg", "تطبيق ممتاز للهاتف والمتصفح"], "https://speechify.com"],
+            ["Play.ht", "audio", "الصوت والموسيقى", "fa-waveform", "منصة توليد الصوت الذكي مع مكتبة هائلة من الأصوات الواقعية الجاهزة للاستخدام.", "تتميز بنماذج صوتية قادرة على الضحك والتنهد والهمس بدقة تناسب الروايات الصوتية.", ["محاكاة المشاعر كالتنهد والهمس", "توليد صوت فوري عبر الـ API", "دعم واسع لمختلف اللغات"], "https://play.ht"],
+            ["Resemble AI", "audio", "الصوت والموسيقى", "fa-fingerprint", "استنساخ الأصوات اللحظي وكشف التزييف الصوتي وحماية البصمة الصوتية.", "تستخدم في صناعة ألعاب الفيديو وتعديل الحوارات المسجلة دون الحاجة لإعادة التسجيل.", ["استنساخ دقيق للبصمة الصوتية", "كشف الأصوات المزيفة Deepfake", "تعديل الكلام المسجل نصياً"], "https://www.resemble.ai"],
+            ["Soundraw", "audio", "الصوت والموسيقى", "fa-sliders", "توليد موسيقى تصويرية غير محدودة وبدون حقوق ملكية لفيديوهات اليوتيوب.", "اختر نوع الموسيقى والحالة المزاجية ومدتها ليقوم بتأليف لحن خلفية آمن للنشر 100%.", ["موسيقى خالية من حقوق الملكية 100%", "تحكم بمدة المقاطع ونقاط الذروة", "تعديل بنية اللحن بسهولة"], "https://soundraw.io"],
+            ["AIVA", "audio", "الصوت والموسيقى", "fa-music", "الملحن الموسيقي السمفوني الكلاسيكي لتأليف المقطوعات السينمائية وألعاب الفيديو.", "أول ذكاء اصطناعي معترف به كملحن رسمي؛ يؤلف سمفونيات كاملة قابلة للتعديل بصيغة MIDI.", ["تأليف سمفونيات أوركسترا سينمائية", "تصدير الملفات بصيغة MIDI والتعديل عليها", "حقوق ملكية موسيقية مرنة للمبدعين"], "https://www.aiva.ai"],
+            ["Boomy", "audio", "الصوت والموسيقى", "fa-compact-disc", "صناعة أغانٍ متكاملة في ثوانٍ ونشرها مباشرة على Spotify والربح منها.", "تتيح لأي شخص غير متخصص في الموسيقى إنتاج ألبومات وتوزيعها للمنصات العالمية.", ["صناعة أغنية بضغطة زر واحدة", "توزيع فوري إلى Spotify وApple Music", "تحقيق عوائد من الاستماعات"], "https://boomy.com"],
+            ["Beatoven.ai", "audio", "الصوت والموسيقى", "fa-drum", "توليد موسيقى تصويرية تراعي المشاعر المتغيرة للمشاهد في البودكاست واليوتيوب.", "قسم الفيديو إلى أجزاء (حزن، إثارة، فرح) وسيقوم بتأليف مقطوعة يتغير لحنها تلقائياً.", ["تغيير نبرة الموسيقى مع تغير المشهد", "موسيقى مخصصة للمحتوى الرقمي", "سهولة تقطيع ومحاذاة المقاطع"], "https://www.beatoven.ai"],
+            ["Voice.ai", "audio", "الصوت والموسيقى", "fa-mask", "مغير الأصوات المباشر أثناء الألعاب ومكالمات الديسكورد ومحادثات البث المباشر.", "تحدث في الميكروفون ليخرج صوتك كشخصية مشهورة أو روبوت بالوقت الفعلي أثناء اللعب.", ["تغيير الصوت بالوقت الفعلي", "مكتبة ضخمة من أصوات المشاهير", "متوافق مع ألعاب PC والديسكورد"], "https://voice.ai"],
+            ["Lalal.ai", "audio", "الصوت والموسيقى", "fa-wave-square", "عزل الصوت الاحترافي واستخراج آلات العزف من الأغاني بدقة لا مثيل لها.", "تستخدم شبكات عصبية متقدمة لفصل صوت المغني عن الموسيقى دون أي تشويش أو ضياع للترددات.", ["عزل الأصوات والموسيقى بنقاء استثنائي", "استخراج آلات منفردة كالجيتار والطبول", "معالجة سريعة عبر المتصفح"], "https://www.lalal.ai"],
+            ["Cleanvoice AI", "audio", "الصوت والموسيقى", "fa-wand-magic-sparkles", "إزالة الترددات (Um/Uh) والتلعثم وأصوات الفم من البودكاست تلقائياً.", "ينظف ساعات من التسجيلات الصوتية في دقائق، ويزيل اللحظات الصامتة الميتة وأصوات الشفاه.", ["حذف كلمات التردد والتأتأة تلقائياً", "تنظيف أصوات الفم والتنفس المزعج", "قص الصمت الميت في الحوارات"], "https://cleanvoice.ai"],
+            ["Krisp.ai", "audio", "الصوت والموسيقى", "fa-shield", "عزل الضوضاء المحيطة ونباح الكلاب وبكاء الأطفال لحظياً في اجتماعات Zoom.", "تطبيق يثبت على الكمبيوتر ويقوم بتصفية صوتك وصوت الطرف الآخر في الاجتماعات والمكالمات.", ["عزل الضوضاء المتبادل بالوقت الحقيقي", "حذف صدى الصوت في الغرف الفارغة", "تفريغ وتلخيص المكالمات تلقائياً"], "https://krisp.ai"],
+            ["Podcastle", "audio", "الصوت والموسيقى", "fa-microphone", "استوديو تسجيل البودكاست الشامل بالمتصفح بجودة استوديو وتعديل ذكي.", "يتيح تسجيل الضيوف عن بعد بجودة غير مضغوطة، مع أدوات تنقية الصوت والمونتاج النصي.", ["تسجيل المقابلات عن بعد بجودة عالية", "مونتاج الصوت عبر تعديل النصوص", "أدوات تنقية الصوت بلمسة واحدة"], "https://podcastle.ai"],
+            ["Audiocraft (Meta)", "audio", "الصوت والموسيقى", "fa-code", "مكتبة ميتا مفتوحة المصدر لتوليد الموسيقى والمؤثرات الصوتية من النصوص.", "تضم أدوات MusicGen وAudioGen لإنتاج أصوات وموسيقى عالية الجودة للمطورين.", ["مفتوح المصدر بالكامل من Meta", "توليد مؤثرات صوتية نادرة للمشاهد", "قابل للتطوير والتدريب محلياً"], "https://github.com/facebookresearch/audiocraft"],
+            ["Riverside.fm AI", "audio", "الصوت والموسيقى", "fa-video", "منصة تسجيل البودكاست بدقة 4K مع استخراج المقاطع القصيرة وتلخيص الحلقة.", "تسجل الصوت والصورة محلياً على جهاز كل ضيف لمنع انقطاع الإنترنت، مع أدوات ذكاء كاملة.", ["تسجيل فيديو محلي بدقة 4K", "توليد تلقائي لأهم لقطات البودكاست", "تفريغ صوتي متعدد اللغات دقيق"], "https://riverside.fm"],
+            ["Suno Bark", "audio", "الصوت والموسيقى", "fa-dog", "النموذج الصوتي التعبيري القادر على الضحك والبكاء والمؤثرات الصوتية البشرية.", "نموذج تحويل نص إلى صوت مفتوح المصدر يتفوق في نقل المشاعر وردات الفعل غير اللغوية.", ["توليد الضحك والتنهدات الحقيقية", "أصوات بيئية ومؤثرات صوتية", "مفتوح المصدر للمطورين"], "https://github.com/suno-ai/bark"],
+            ["Fadr", "audio", "الصوت والموسيقى", "fa-sliders", "ريمكس وفصل الأغاني التلقائي وتحديد المقامات والتوافق الموسيقي للموزعين.", "ارفع أي أغنيتين وسيقوم بمطابقة الإيقاع وفصل الأصوات لصناعة Mashup احترافي بدقائق.", ["صناعة الماش أب (Mashup) بسهولة", "مطابقة سرعة الإيقاع والمفاتيح الموسيقية", "فصل المسارات الموسيقية مجاناً"], "https://fadr.com"],
+            ["Endel", "audio", "الصوت والموسيقى", "fa-spa", "توليد بيئات صوتية مخصصة للتركيز والنوم والاسترخاء مدعومة بعلم الأعصاب.", "تتغير الأصوات لحظياً بناءً على وقت اليوم، نبضات قلبك، والطقس لمساعدتك على التركيز.", ["أصوات تركيز مبنية على علم الأعصاب", "تتفاعل مع المؤشرات الحيوية للجسم", "معتمدة من كبار الفنانين والعلماء"], "https://endel.io"],
+            ["Voicemod", "audio", "الصوت والموسيقى", "fa-headset", "لوحة مؤثرات صوتية وتعديل الأصوات الحية للمذيعين وصناع محتوى الألعاب.", "تمنحك مئات الأصوات الكوميدية والمؤثرات الصوتية التي تعمل بضغطة زر أثناء البث المباشر.", ["مؤثرات صوتية حية للبثوث", "تعديل طبقات الصوت والتنكر", "تكامل مع Discord وTwitch"], "https://www.voicemod.net"],
+            ["Kits.ai", "audio", "الصوت والموسيقى", "fa-microphone", "تحويل نبرة غنائك إلى أصوات مطربين آخرين أو تدريب نموذج لصوتك الغنائي.", "منصة مخصصة للمنتجين الموسيقيين؛ استبدل صوتك بصوت مطرب محترف مع الحفاظ على اللحن.", ["استبدال أصوات الغناء بنقاء تام", "أصوات مطربين مرخصة ومحمية", "تدريب نماذج صوتية مخصصة"], "https://www.kits.ai"],
+
+            // ================= 8. الإنتاجية والأتمتة والعوالم (25 أداة) =================
+            ["Gamma App", "prod", "الإنتاجية والأتمتة", "fa-presentation-screen", "توليد عروض تقديمية (PowerPoint) ومواقع كاملة من النص بنقرة واحدة.", "اكتب فكرة العرض ليقوم بهيكلة المحتوى وتنسيق الشرائح بصرياً بأسلوب عصري بدقيقة.", ["عروض تقديمية جاهزة بدقيقة", "تصدير إلى PowerPoint وPDF", "تصاميم تفاعلية حديثة كلياً"], "https://gamma.app"],
+            ["Make.com", "prod", "الإنتاجية والأتمتة", "fa-network-wired", "منصة الأتمتة البصرية لربط تطبيقاتك بنماذج الذكاء الاصطناعي بدون كود.", "تتيح لك بناء سيناريوهات متطورة لربط إيميلاتك وشيتات جوجل ونماذج GPT لتوفير وقتك.", ["واجهة بصرية سهلة للسحب والإفلات", "ربط آلاف التطبيقات السحابية معاً", "توفير مئات ساعات العمل اليدوي"], "https://www.make.com"],
+            ["Otter.ai", "prod", "الإنتاجية والأتمتة", "fa-headset", "حضور اجتماعات Zoom وTeams لتفريغ المحادثات واستخراج قرارات العمل.", "ينضم للاجتماع بالنيابة عنك، يفرغ الصوت لنص، ويولد ملخصاً بالقرارات الموكلة لكل موظف.", ["انضمام تلقائي للاجتماعات الافتراضية", "تفريغ فوري وتحديد المتحدثين", "ملخصات تنفيذية لخطوات العمل"], "https://otter.ai"],
+            ["Julius AI", "prod", "الإنتاجية والأتمتة", "fa-chart-pie", "محلل البيانات الذكي لتحويل ملفات Excel وCSV لرسوم بيانية وتحليلات دقيقة.", "ارفع جدول مبيعاتك واطلب رسم المنحنيات البيانية وتوقع أرباح المستقبل باللغة العادية.", ["رسم بياني فوري لأي جدول بيانات", "تحليل تنبؤي للمبيعات والأرقام", "دعم كامل لملفات Excel وCSV"], "https://julius.ai"],
+            ["Zapier Central", "prod", "الإنتاجية والأتمتة", "fa-arrows-split-up-and-left", "بناء روبوتات عمل ذكية تنفذ المهام عبر آلاف التطبيقات في خلفية جهازك.", "علم الروبوت مهامك اليومية؛ مثل 'إذا راسلني عميل مهم، لخص طلبه ونبهني على سلاك'.", ["بناء وكلاء أتمتة مهام ذاتية", "تكامل مع أكثر من 6000 تطبيق", "تنفيذ الإجراءات التلقائية بالخلفية"], "https://zapier.com/central"],
+            ["Taskade AI", "prod", "الإنتاجية والأتمتة", "fa-list-check", "إدارة المشاريع والخرائط الذهنية وتوليد خطط العمل لفرق العمل عن بعد.", "يحول أفكارك إلى لوحات مهام كانبان وجداول زمنية مع وكلاء ذكاء اصطناعي يساعدونك.", ["توليد خرائط ذهنية وخطط مشاريع", "وكلاء ذكاء مخصصين للمهام", "إدارة المهام بأسلوب Kanban"], "https://www.taskade.com"],
+            ["Beautiful.ai", "prod", "الإنتاجية والأتمتة", "fa-file-powerpoint", "تصميم شرائح عروض تقديمية تضبط أبعاد وتناسق العناصر تلقائياً أثناء الكتابة.", "تغنيك عن تعديل مقاسات المربعات والخطوط يدوياً؛ تضبط كل عنصر هندسياً لضمان مظهر جذاب.", ["محاذاة وتنسيق هندسي تلقائي للشرائح", "قوالب أعمال أنيقة للمديرين", "تصدير متوافق مع كافة البرامج"], "https://www.beautiful.ai"],
+            ["Fireflies.ai", "prod", "الإنتاجية والأتمتة", "fa-microphone-lines", "تسجيل وتلخيص وتدوين ملاحظات مكالمات الفيديو عبر منصات الاجتماعات المختلفة.", "يبحث داخل نصوص الاجتماعات المسجلة ويستخرج النقاط السعرية والقرارات ومدة حديث كل شخص.", ["تسجيل وتفريغ المكالمات تلقائياً", "البحث الذكي داخل المقاطع المنطوقة", "تحليل المشاعر وأداء المتحدثين"], "https://fireflies.ai"],
+            ["Fathom Video", "prod", "الإنتاجية والأتمتة", "fa-video", "مساعد اجتماعات Zoom المجاني الذي يكتب الملاحظات بينما تركز أنت في الحديث.", "يولد ملخصاً شاملاً لما تم الاتفاق عليه فور انتهاء الاجتماع ويرسله إلى الـ CRM مباشرة.", ["مجاني بالكامل للأفراد", "إرسال ملخص الاجتماع للإيميل فوراً", "تكامل مع Notion وHubSpot"], "https://fathom.video"],
+            ["Rows AI", "prod", "الإنتاجية والأتمتة", "fa-table-cells", "جدول بيانات الجيل القادم المدمج بالذكاء لاستخراج وتحليل بيانات الإنترنت.", "بديل متطور لـ Excel؛ يربط مواقع التواصل ويحلل البيانات ويكتب المعادلات المعقدة تلقائياً.", ["كتابة معادلات الجداول بلغة بسيطة", "استخراج البيانات من الويب للجداول مباشرة", "واجهات رسوم بيانية عصرية"], "https://rows.com"],
+            ["SheetGPT", "prod", "الإنتاجية والأتمتة", "fa-file-excel", "تشغيل أوامر ChatGPT مباشرة داخل خلايا Google Sheets لإنشاء محتوى ضخم.", "استخدم دوال مثل =GPT() لترجمة أو تلخيص أو كتابة مئات الخلايا في جدولك دفعة واحدة.", ["دوال ذكاء اصطناعي داخل الخلايا", "توليد محتوى لمئات الصفوف بسرعة", "تنظيف وتنسيق قوائم البيانات الضخمة"], "https://sheetgpt.ai"],
+            ["Formula Bot", "prod", "الإنتاجية والأتمتة", "fa-calculator", "كتابة وشرح معادلات Excel وGoogle Sheets المعقدة بمجرد كتابة ما تريده نصياً.", "اكتب 'اجمع العمود الأول إذا كان الاسم أحمد'، وسيقوم بصياغة دالة SUMIFS المركبة بدقة.", ["تحويل الوصف النصي لمعادلات معقدة", "شرح أي معادلة غامضة داخل الشيت", "تحليل البيانات واستخراج الجداول"], "https://formulabot.com"],
+            ["Mem.ai", "prod", "الإنتاجية والأتمتة", "fa-brain", "مساحة تدوين ملاحظات ذاتية التنظيم تربط أفكارك تلقائياً دون الحاجة لمجلدات.", "تستخدم الذكاء الاصطناعي لربط مذكراتك القديمة بمشاريعك الحالية لتبني ذاكرة ثانية متيقظة.", ["تنظيم ذاتي ذكي بدون مجلدات", "ربط الأفكار والملاحظات المتقاربة", "بحث سياقي فوري في كل كتاباتك"], "https://mem.ai"],
+            ["Rewind AI (Limitless)", "prod", "الإنتاجية والأتمتة", "fa-clock-rotate-left", "تسجيل وبحث كل ما رأيته أو سمعته أو قرأته على شاشة جهاز Mac واجتماعاتك.", "محرك بحث مخصص لحياتك الرقمية؛ يتيح لك العثور على أي موقع أو محادثة رأيتها قبل أشهر.", ["تذكر كل ما تراه على شاشتك", "بحث زمني في الاجتماعات والمواقع", "تشفير محلي صارم لحماية الخصوصية"], "https://www.limitless.ai"],
+            ["Glean", "prod", "الإنتاجية والأتمتة", "fa-magnifying-glass", "محرك البحث الداخلي للشركات للبحث الفوري عبر Slack، Drive، وJira.", "يساعد موظفي الشركات الكبرى على العثور على أي ملف أو قرار عمل من بين آلاف المستندات فوراً.", ["بحث شامل عبر كافة تطبيقات الشركة", "إجابات فورية لأسئلة الموظفين", "أمان مؤسسي دقيق للصلاحيات"], "https://www.glean.com"],
+            ["Bardeen.ai", "prod", "الإنتاجية والأتمتة", "fa-robot", "أتمتة مهام المتصفح المتكررة وسحب البيانات من المواقع دون مغادرة الشاشة.", "يقوم بمهامك الروتينية بنقرة واحدة؛ مثل سحب بيانات صفحة لينكدإن وحفظها بالـ CRM فوراً.", ["أتمتة مباشرة داخل المتصفح بنقرة", "سحب وتفريغ بيانات المواقع للشيت", "توفير ساعات المهام الروتينية"], "https://www.bardeen.ai"],
+            ["Magical AI", "prod", "الإنتاجية والأتمتة", "fa-wand-magic", "ملء النماذج ونقل البيانات بين التبويبات وكتابة الرسائل المتكررة بسرعة.", "إضافة للمتصفح تختصر نصوصك وتملأ بيانات العملاء من صفحات الويب إلى الجداول تلقائياً.", ["ملء استمارات البيانات التلقائي", "اختصارات نصية ذكية للردود", "نقل البيانات بين التبويبات بدون API"], "https://www.getmagical.com"],
+            ["Tome AI", "prod", "الإنتاجية والأتمتة", "fa-book-bookmark", "صناعة قصص بصرية وعروض تفاعلية متناسقة تجمع بين النص والصور المولدة.", "تكتب الفكرة، فيولد لك قصة مصورة مقسمة لشرائح احترافية مدعومة بالرسوم المبتكرة.", ["سرد قصصي بصري جذاب", "توليد نصوص وصور متناسقة للشرائح", "واجهة عصرية تفاعلية للأجهزة"], "https://tome.app"],
+            ["Motion AI", "prod", "الإنتاجية والأتمتة", "fa-calendar-check", "تقويم ذكي يعيد جدولة مهامك واجتماعاتك تلقائياً عند حدوث أي طارئ في يومك.", "يخطط يومك بالكامل بالدقيقة، وإذا تأخرت في مهمة يعيد ترتيب باقي اليوم لضمان إنجاز أهدافك.", ["إعادة جدولة اليوم تلقائياً بذكاء", "حجز المواعيد بدون تعارضات", "دمج قائمة المهام مع التقويم الزمني"], "https://www.usemotion.com"],
+            ["Reclaim.ai", "prod", "الإنتاجية والأتمتة", "fa-clock", "حماية أوقات عاداتك الشخصية (الرياضة، الغداء) وجدولتها تلقائياً بالتقويم.", "يمنع تداخل اجتماعات العمل مع أوقات استراحتك عبر حجز أوقات ذكية تتنقل بمرونة بحسب ضغط عملك.", ["حجز أوقات للعادات الشخصية والتركيز", "إيجاد أوقات الاجتماعات المشتركة لفرق العمل", "تكامل وثيق مع Google Calendar"], "https://reclaim.ai"],
+            ["Meshy AI", "3d", "3D والعوالم الافتراضية", "fa-cube", "تحويل النصوص والصور إلى مجسمات 3D كاملة الإكساء وخامات التكتشر.", "أداة مذهلة لمطوري الألعاب ومصممي المجسمات؛ تصنع ملفات ثلاثية الأبعاد بصيغ FBX وOBJ.", ["تحويل الصور لمجسمات 3D فوراً", "توليد خامات التكتشر تلقائياً", "تصدير بصيغ FBX وOBJ وGLTF"], "https://www.meshy.ai"],
+            ["Spline AI", "3d", "3D والعوالم الافتراضية", "fa-cubes-stacked", "تصميم عوالم وعناصر ثلاثية الأبعاد تفاعلية للويب عبر الأوامر النصية.", "يمكنك من توليد كائنات 3D تتفاعل مع حركة الفأرة بالمتصفح ودمجها بالمواقع الحديثة.", ["توليد مشاهد 3D تفاعلية للأوامر", "تفاعل حي للمجسمات مع الفأرة", "تصدير كود مخصص للويب"], "https://spline.design/ai"],
+            ["Luma Genie", "3d", "3D والعوالم الافتراضية", "fa-shapes", "توليد مجسمات ثلاثية الأبعاد واقعية وسريعة جداً من النصوص عبر المتصفح.", "تكتب وصف العنصر فيقوم بتوليد 4 نماذج ثلاثية الأبعاد بدقائق لتحميلها لبرامج 3D.", ["توليد 4 نماذج بدقائق", "معاينة 3D سلسة بالمتصفح", "جاهز للاستخدام في Unity وUnreal"], "https://lumalabs.ai/genie"],
+            ["CSM (Common Sense)", "3d", "3D والعوالم الافتراضية", "fa-vr-cardboard", "تحويل مقاطع فيديو الهواتف الواقعية لأي غرض إلى نموذج 3D حقيقي.", "صور أي حذاء أو غرض بكاميرا هاتفك من كل الجهات وسيحوله لملف ثلاثي الأبعاد رقمي مطابق.", ["مسح الأغراض الواقعية بالفيديو", "توليد أصول رقمية متقنة للألعاب", "دعم كامل لتقنيات الـ NeRF"], "https://csm.ai"],
+            ["Masterpiece Studio", "3d", "3D والعوالم الافتراضية", "fa-person-running", "توليد وتحريك وتجهيز شخصيات الألعاب ثلاثية الأبعاد (Rigging) بالأوامر.", "تولد الشخصية وتطلب منه تجهيز مفاصلها وعظامها للحركة فوراً للاستخدام المباشر بالألعاب.", ["تجهيز عظام الشخصيات (Rigging) تلقائياً", "توليد شخصيات ألعاب متكاملة", "تصدير فوري لمحركات الألعاب الشهيرة"], "https://masterpiecex.com"]
+        ];
+
+        // معالجة البيانات
+        const aiTools = rawTools.map((t, index) => ({
+            id: index + 1,
+            name: t[0],
+            category: t[1],
+            catLabel: t[2],
+            icon: t[3],
+            shortDesc: t[4],
+            fullDesc: t[5],
+            features: t[6],
+            link: t[7]
+        }));
+
+        let currentCategory = "all";
+        const container = document.getElementById('cardsTrack');
+        const navContainer = document.getElementById('categoriesNav');
+
+        // بناء شريط التصنيفات
+        function buildCategoriesNav() {
+            navContainer.innerHTML = '';
+            categories.forEach(cat => {
+                const count = cat.id === 'all' 
+                    ? aiTools.length 
+                    : aiTools.filter(t => t.category === cat.id).length;
+
+                const btn = document.createElement('button');
+                btn.className = `cat-btn ${cat.id === currentCategory ? 'active' : ''}`;
+                btn.innerHTML = `
+                    <i class="fa-solid ${cat.icon}"></i> 
+                    ${cat.label} 
+                    <span class="cat-count">${count}</span>
+                `;
+                btn.onclick = () => selectCategory(cat.id, btn);
+                navContainer.appendChild(btn);
+            });
+        }
+
+        // بناء البطاقات
+        function renderCards(tools) {
+            container.innerHTML = '';
+            
+            if (tools.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; width: 100%; padding: 60px 20px; color: var(--text-muted);">
+                        <i class="fa-solid fa-face-meh" style="font-size: 3.5rem; margin-bottom: 15px; display: block; color: var(--primary);"></i>
+                        <h3>لم يتم العثور على أداة مطابقة لبحثك</h3>
+                        <p style="margin-top: 5px; font-size: 0.9rem;">جرب كتابة كلمات بحثية أخرى أو استعرض الأقسام المختلفة</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+
+            tools.forEach(tool => {
+                const cardPerspective = document.createElement('div');
+                cardPerspective.className = 'card-perspective';
+
+                cardPerspective.innerHTML = `
+                    <div class="card" onclick="toggleFlip(this)">
+                        <!-- الوجه الأمامي -->
+                        <div class="card-face card-front">
+                            <span class="badge">${tool.catLabel} #${tool.id}</span>
+                            <div class="tool-icon">
+                                <i class="fa-solid ${tool.icon}"></i>
+                            </div>
+                            <h2 class="tool-title">${tool.name}</h2>
+                            <p class="tool-short">${tool.shortDesc}</p>
+                            <div class="hint-text">
+                                <i class="fa-solid fa-hand-pointer"></i> اضغط لمعرفة التفاصيل
+                            </div>
+                        </div>
+
+                        <!-- الوجه الخلفي -->
+                        <div class="card-face card-back">
+                            <div>
+                                <h3>حول أداة ${tool.name}</h3>
+                                <p class="full-desc">${tool.fullDesc}</p>
+                                <ul class="features-list">
+                                    ${tool.features.map(f => `<li><i class="fa-solid fa-circle-check"></i> ${f}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <a href="${tool.link}" target="_blank" rel="noopener noreferrer" class="tool-link" onclick="event.stopPropagation()">
+                                الموقع الرسمي <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; margin-right: 4px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                fragment.appendChild(cardPerspective);
+            });
+
+            container.appendChild(fragment);
+        }
+
+        // تفاعلية قلب البطاقة
+        function toggleFlip(cardEl) {
+            cardEl.classList.toggle('is-flipped');
+        }
+
+        // اختيار التصنيف
+        function selectCategory(catId, btnElement) {
+            currentCategory = catId;
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('searchInput').value = '';
+            
+            const filtered = (catId === 'all') 
+                ? aiTools 
+                : aiTools.filter(t => t.category === catId);
+
+            renderCards(filtered);
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+
+        // البحث الفوري
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            
+            let filtered = (currentCategory === 'all') 
+                ? aiTools 
+                : aiTools.filter(t => t.category === currentCategory);
+
+            if (query !== '') {
+                filtered = filtered.filter(tool => 
+                    tool.name.toLowerCase().includes(query) || 
+                    tool.shortDesc.toLowerCase().includes(query) ||
+                    tool.fullDesc.toLowerCase().includes(query) ||
+                    tool.catLabel.toLowerCase().includes(query)
+                );
+            }
+            renderCards(filtered);
+        }
+
+        // تبديل العرض بين السلايدر والشبكة
+        function setViewMode(mode) {
+            const btnSlider = document.getElementById('btnSlider');
+            const btnGrid = document.getElementById('btnGrid');
+            const arrowPrev = document.getElementById('arrowPrev');
+            const arrowNext = document.getElementById('arrowNext');
+
+            if (mode === 'grid') {
+                container.classList.add('grid-mode');
+                btnGrid.classList.add('active');
+                btnSlider.classList.remove('active');
+                arrowPrev.classList.add('hidden');
+                arrowNext.classList.add('hidden');
+            } else {
+                container.classList.remove('grid-mode');
+                btnSlider.classList.add('active');
+                btnGrid.classList.remove('active');
+                arrowPrev.classList.remove('hidden');
+                arrowNext.classList.remove('hidden');
+            }
+        }
+
+        // تمرير السلايدر
+        function scrollSlider(direction) {
+            const scrollAmount = 350;
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        // البدء والتشغيل
+        buildCategoriesNav();
+        renderCards(aiTools);
+    </script>
+</body>
+</html>
